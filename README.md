@@ -1,22 +1,23 @@
 # OITAN — CHARACTER ARCHIVE
 
-スマートフォンでも見やすい、キャラクター・プロット・配布プロンプト用の静的サイトです。GitHub Pagesで公開できます。
+代理キャラクターとOCを分けて掲載する、スマートフォン対応の創作キャラクター紹介サイトです。プロットに登場する人物も `kind: "OC"` で登録できます。
 
-## 内容を編集する
+## キャラクターを追加・編集する
 
-1. `data.js` を開き、`characters` / `stories` / `prompts` の中身を書き換えます。
-2. キャラクター画像を `images/` に入れ、各キャラクターの `image` にファイル名を記入します。画像がない場合はイニシャル風の仮表示になります。
-3. `profile` に紹介文、`prompt` にコピーさせたいプロンプト、`promptTags` に「髪型」「衣装」「構図」などの項目タグを記入します。
-4. 物語・プロットの人物は `stories` に追加します。カードの説明には `title`、`summary`、`tags` を使います。
-
-例：
+GitHub上で `data.js` を開き、鉛筆アイコンから編集します。キャラクター情報は `characters` の配列に追加します。
 
 ```js
-{ id: "new-character", no: "007", name: "新しい子", kind: "OC", image: "new-character.jpg", summary: "短い紹介", profile: "プロフィール", prompt: "copyable prompt", promptTags: ["髪型", "衣装"] }
+{ id: "new-character", no: "007", name: "新しい子", kind: "OC", image: "new-character.jpg", summary: "一覧に出す短い紹介", profile: "プロフィール本文", prompt: "コピー用プロンプト", promptTags: ["髪型", "衣装", "構図"] }
 ```
 
-## GitHub Pagesで公開
+- `kind` は `代理` または `OC`。プロットキャラクターもOC欄に登録します。
+- 画像ファイルはリポジトリに `images` フォルダを作って入れ、`image` にファイル名を書きます。画像なしなら頭文字の仮画像を表示します。
+- `summary` は一覧カードの短い説明です。空欄ならカード上は省略されます。
+- 詳細画面ではプロフィールをコピーできます。`prompt` を入力すると、タグ付きプロンプトの表示・コピー欄も追加されます。
+- `no` は一覧用の番号です。カードの順番は `characters` の並び順になります。
 
-新しい公開リポジトリを作成し、このフォルダのファイルをリポジトリ直下にアップロードします。GitHubの **Settings → Pages** で `Deploy from a branch`、`main`、`/(root)` を選んで保存します。
+保存時に **Commit changes** を押すと、GitHub Pagesが自動で更新されます。
 
-公開用リポジトリはソースも公開されます。掲載前に、見せたくない設定やプロンプトが含まれていないか確認してください。
+## 公開について
+
+このリポジトリは公開設定です。サイトに載せるプロフィール、プロンプト、画像は誰でも閲覧できる内容にしてください。

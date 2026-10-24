@@ -1,63 +1,67 @@
 (() => {
-  const data = window.ARCHIVE_DATA || { characters: [], stories: [], prompts: [] };
-  const $ = (s) => document.querySelector(s);
-  const esc = (s = "") => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-  const tag = (text, kind = "") => `<span class="tag ${kind.toLowerCase() === "代理" ? "proxy" : kind.toLowerCase() === "oc" ? "oc" : ""}">${esc(text)}</span>`;
-  const characterGrid = $("#character-grid");
-  const filterHost = $("#character-filters");
-  let activeKind = "すべて";
-  const kinds = ["すべて", ...new Set(data.characters.map(c => c.kind).filter(Boolean))];
-  filterHost.innerHTML = kinds.map(k => `<button class="filter-btn ${k === activeKind ? "active" : ""}" data-kind="${esc(k)}">${esc(k)}</button>`).join("");
-  function renderCharacters() {
-    const query = $("#character-search").value.trim().toLowerCase();
-    const items = data.characters.filter(c => (activeKind === "すべて" || c.kind === activeKind) && `${c.name} ${c.summary} ${c.kind}`.toLowerCase().includes(query));
-    $("#character-count").textContent = `${String(items.length).padStart(2,"0")} FILES`;
-    characterGrid.innerHTML = items.map(c => `<article class="character-card" data-id="${esc(c.id)}" tabindex="0" role="button" aria-label="${esc(c.name)}のプロフィールを開く">
-      <div class="portrait">${c.image ? `<img src="images/${esc(c.image)}" alt="${esc(c.name)}">` : `<span class="portrait-placeholder">${esc(c.name.slice(0,1))}</span>`}</div>
-      <div class="card-meta"><h3>${esc(c.name)}</h3><span class="card-no">NO.${esc(c.no)}</span></div>
-      <div class="card-tags">${tag(c.kind, c.kind)}${(c.promptTags || []).slice(0,2).map(t => tag(t)).join("")}</div>
-    </article>`).join("");
-    characterGrid.querySelectorAll(".character-card").forEach(card => {
-      const open = () => showCharacter(data.characters.find(c => c.id === card.dataset.id));
-      card.addEventListener("click", open);
-      card.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
-    });
-  }
-  function showCharacter(c) {
-    if (!c) return;
-    const promptBlock = c.prompt ? `<div class="detail-prompt"><p class="eyebrow">PROMPT / COPY</p><div class="prompt-tags">${(c.promptTags || []).map(t => tag(t)).join("")}</div><pre>${esc(c.prompt)}</pre><button class="copy-btn" data-copy="${esc(c.id)}">COPY PROMPT</button></div>` : "";
-    $("#dialog-content").innerHTML = `<p class="eyebrow">CHARACTER FILE / NO.${esc(c.no)}</p><h2>${esc(c.name)}</h2>${c.image ? `<img class="detail-cover" src="images/${esc(c.image)}" alt="${esc(c.name)}">` : ""}<div class="card-tags">${tag(c.kind,c.kind)}</div><p class="detail-copy">${esc(c.profile || c.summary || "プロフィールをdata.jsに入力してください")}</p>${promptBlock}`;
-    $("#character-dialog").showModal();
-    const copy = $("#dialog-content [data-copy]");
-    if (copy) copy.addEventListener("click", () => copyText(c.prompt));
-  }
-  filterHost.addEventListener("click", e => {
-    const btn = e.target.closest("[data-kind]"); if (!btn) return;
-    activeKind = btn.dataset.kind;
-    filterHost.querySelectorAll(".filter-btn").forEach(b => b.classList.toggle("active", b === btn));
-    renderCharacters();
-  });
-  $("#character-search").addEventListener("input", renderCharacters);
-  $(".dialog-close").addEventListener("click", () => $("#character-dialog").close());
-  $("#character-dialog").addEventListener("click", e => { if (e.target === $("#character-dialog")) $("#character-dialog").close(); });
-  function renderStories() {
-    const host = $("#story-grid");
-    $("#story-count").textContent = `${String(data.stories.length).padStart(2,"0")} FILES`;
-    $("#story-empty").hidden = data.stories.length > 0;
-    host.innerHTML = data.stories.map((s, i) => `<article class="story-card"><div><p class="eyebrow">PLOT FILE / ${String(i+1).padStart(3,"0")}</p><h3>${esc(s.title)}</h3><p>${esc(s.summary || "")}</p><div class="card-tags">${(s.tags || []).map(t=>tag(t)).join("")}</div></div><span class="story-arrow">↗</span></article>`).join("");
-  }
-  function renderPrompts() {
-    const host = $("#prompt-grid");
-    const items = data.prompts.filter(p => p.text);
-    $("#prompt-empty").hidden = items.length > 0;
-    host.innerHTML = items.map(p => `<article class="prompt-card"><p class="eyebrow">PROMPT FILE</p><h3>${esc(p.title)}</h3><div class="prompt-tags">${(p.tags || []).map(t=>tag(t)).join("")}</div><div class="prompt-preview">${esc(p.text)}</div><button class="copy-btn">COPY PROMPT</button></article>`).join("");
-    host.querySelectorAll(".copy-btn").forEach((b,i)=>b.addEventListener("click",()=>copyText(items[i].text)));
-  }
+  const characters = (window.ARCHIVE_DATA?.characters || []).filter(c => c && c.name && ["代理", "OC"].includes(c.kind));
+  const $ = selector => document.querySelector(selector);
+  const esc = value => String(value ?? "").replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
+  const tag = value => `<span class="tag">${esc(value)}</span>`;
   let toastTimer;
-  async function copyText(text) {
-    try { await navigator.clipboard.writeText(text); }
-    catch { const ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove(); }
-    const toast=$("#toast");toast.textContent="PROMPT COPIED";toast.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove("show"),1500);
+
+  function renderCard(c) {
+    const searchText = `${c.name} ${c.summary || ""} ${c.profile || ""} ${(c.promptTags || []).join(" ")}`.toLowerCase();
+    const portrait = c.image
+      ? `<img src="images/${esc(c.image)}" alt="${esc(c.name)}" loading="lazy">`
+      : `<span class="portrait-placeholder"><i>${esc(c.name.slice(0, 1))}</i><small>PORTRAIT<br>NOT SET</small></span>`;
+    const note = c.summary ? `<p class="card-summary">${esc(c.summary)}</p>` : "";
+    const badges = (c.promptTags || []).slice(0, 2).map(tag).join("");
+    return `<button class="character-card ${c.kind === "OC" ? "oc-card" : "proxy-card"}" type="button" data-id="${esc(c.id)}" data-search="${esc(searchText)}">
+      <span class="card-portrait">${portrait}<span class="portrait-index">NO. ${esc(c.no || "—")}</span><span class="portrait-open">OPEN FILE ↗</span></span>
+      <span class="card-info"><span class="card-title-row"><span class="card-name">${esc(c.name)}</span><span class="card-kind">${c.kind === "OC" ? "OC" : "PROXY"}</span></span>${note}<span class="card-bottom"><span class="card-tags">${badges}</span><span class="card-arrow">↗</span></span></span>
+    </button>`;
   }
-  renderCharacters(); renderStories(); renderPrompts();
+
+  function render() {
+    const query = $("#character-search").value.trim().toLocaleLowerCase("ja");
+    const filtered = characters.filter(c => `${c.name} ${c.summary || ""} ${c.profile || ""} ${(c.promptTags || []).join(" ")}`.toLocaleLowerCase("ja").includes(query));
+    const groups = [
+      { kind: "代理", grid: "#proxy-grid", count: "#proxy-count", navCount: "#proxy-nav-count", empty: "#proxy-empty" },
+      { kind: "OC", grid: "#oc-grid", count: "#oc-count", navCount: "#oc-nav-count", empty: "#oc-empty" }
+    ];
+    groups.forEach(group => {
+      const list = filtered.filter(c => c.kind === group.kind);
+      $(group.grid).innerHTML = list.map(renderCard).join("");
+      $(group.count).textContent = `${String(list.length).padStart(2, "0")} CHARACTERS`;
+      $(group.navCount).textContent = String(characters.filter(c => c.kind === group.kind).length).padStart(2, "0");
+      $(group.empty).hidden = list.length > 0 || query !== "";
+      document.querySelector(group.grid).closest(".character-section").hidden = !list.length && !!query;
+    });
+    $("#no-results").hidden = filtered.length > 0;
+    document.querySelectorAll(".character-card").forEach(card => card.addEventListener("click", () => openCharacter(characters.find(c => c.id === card.dataset.id))));
+  }
+
+  function openCharacter(c) {
+    if (!c) return;
+    const image = c.image ? `<img class="detail-cover" src="images/${esc(c.image)}" alt="${esc(c.name)}">` : "";
+    const profile = c.profile || c.summary || "プロフィールはまだ登録されていません。";
+    const prompt = c.prompt ? `<section class="detail-block"><div class="detail-block-head"><div><p class="eyebrow">PROMPT / COPY</p><h3>生成プロンプト</h3></div><button class="action-button" id="copy-prompt">プロンプトをコピー <span>↗</span></button></div><div class="prompt-tags">${(c.promptTags || []).map(tag).join("")}</div><pre>${esc(c.prompt)}</pre></section>` : "";
+    $("#dialog-content").innerHTML = `<p class="eyebrow">${c.kind === "OC" ? "ORIGINAL CHARACTER" : "PERSONAL AVATAR"} / FILE NO.${esc(c.no || "—")}</p><div class="detail-title-row"><h2 id="dialog-name">${esc(c.name)}</h2><span class="detail-kind ${c.kind === "OC" ? "oc-kind" : "proxy-kind"}">${c.kind === "OC" ? "OC" : "PROXY"}</span></div>${image}<section class="detail-block profile-block"><div class="detail-block-head"><div><p class="eyebrow">PROFILE</p><h3>プロフィール</h3></div><button class="action-button" id="copy-profile">プロフィールをコピー <span>↗</span></button></div><p class="detail-copy">${esc(profile)}</p></section>${prompt}`;
+    $("#character-dialog").showModal();
+    $("#copy-profile").addEventListener("click", () => copyText(profile, "PROFILE COPIED"));
+    const promptButton = $("#copy-prompt");
+    if (promptButton) promptButton.addEventListener("click", () => copyText(c.prompt, "PROMPT COPIED"));
+  }
+
+  async function copyText(text, message) {
+    try { await navigator.clipboard.writeText(text); }
+    catch {
+      const area = document.createElement("textarea");
+      area.value = text; area.style.position = "fixed"; area.style.opacity = "0";
+      document.body.append(area); area.select(); document.execCommand("copy"); area.remove();
+    }
+    const toast = $("#toast"); toast.textContent = message; toast.classList.add("show");
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove("show"), 1500);
+  }
+
+  $("#character-search").addEventListener("input", render);
+  $(".dialog-close").addEventListener("click", () => $("#character-dialog").close());
+  $("#character-dialog").addEventListener("click", event => { if (event.target === $("#character-dialog")) $("#character-dialog").close(); });
+  render();
 })();
