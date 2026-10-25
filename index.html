@@ -3,58 +3,43 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#090b0f">
-  <meta name="description" content="おいたんの創作キャラクターアーカイブ。代理とオリジナルキャラクターのプロフィールを掲載。">
-  <title>OITAN — CHARACTER ARCHIVE</title>
+  <meta name="theme-color" content="#08070a">
+  <meta name="description" content="おいたんの創作キャラクターアーカイブ。代理とオリジナルキャラクターのプロフィール。">
+  <title>MY CHARACTERS — OITAN</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-page="all">
   <header class="topbar" id="top">
-    <a class="brand" href="#top" aria-label="Oitan Archive トップ"><span class="brand-mark">O</span><span>OITAN <i>／</i> ARCHIVE</span></a>
-    <nav class="jump-nav" aria-label="ページ内ナビゲーション">
-      <a href="#proxy">代理 <span id="proxy-nav-count">00</span></a>
-      <a href="#originals">OC <span id="oc-nav-count">00</span></a>
+    <a class="brand" href="index.html" aria-label="My Characters トップ"><span class="brand-mark">O</span><span>OITAN <i>／</i> ARCHIVE</span></a>
+    <nav class="jump-nav" aria-label="キャラクター分類">
+      <a href="index.html" data-nav="all">ALL</a>
+      <a href="proxy.html" data-nav="proxy">代理</a>
+      <a href="oc.html" data-nav="oc">OC</a>
     </nav>
   </header>
-
   <main>
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="eyebrow"><span class="live-dot"></span> PERSONAL CHARACTER ARCHIVE <span class="hero-year">EST. 2026</span></p>
-        <h1 id="hero-title">CHARACTER<br><em>INDEX</em><span class="period">_</span></h1>
+        <h1 id="hero-title">MY<br><em>CHARACTERS</em><span class="period">_</span></h1>
         <p class="hero-note">代理と、オリジナルキャラクターの記録。</p>
       </div>
-      <div class="hero-stamp" aria-hidden="true"><span class="stamp-ring"></span><span class="stamp-o">O</span><span class="stamp-label">OITAN<br>CREATIVE FILES</span><span class="stamp-cross">✳</span></div>
-      <div class="hero-bottom"><span>CHARACTERS / PROFILE / PROMPT</span><a href="#directory">EXPLORE ARCHIVE <b>↓</b></a></div>
+      <div class="hero-index-panel" aria-hidden="true"><span class="hero-index-no">O/01</span><span class="hero-index-rule"></span><span class="hero-index-vertical">ORIGINAL CHARACTERS<br>PERSONAL ARCHIVE</span><span class="hero-index-year">2026 — ∞</span><span class="hero-index-cjk">角色档案</span></div>
+      <div class="hero-bottom"><span>CHARACTERS / PROFILE / PROMPT</span><a href="#characters">EXPLORE ARCHIVE <b>↓</b></a></div>
     </section>
-
-    <section class="directory" id="directory">
+    <section class="directory" id="characters">
       <div class="directory-tools">
-        <div><p class="eyebrow">THE DIRECTORY</p><h2>人物一覧<span> / INDEX</span></h2></div>
+        <div><p class="eyebrow" id="page-eyebrow">THE COMPLETE INDEX</p><h2 id="page-title">All Characters</h2></div>
         <label class="search-box"><span aria-hidden="true">⌕</span><input id="character-search" type="search" placeholder="名前・タグで検索" aria-label="キャラクターを検索"><kbd>SEARCH</kbd></label>
       </div>
-      <div id="no-results" class="no-results" hidden>該当するキャラクターがいません。</div>
-    </section>
-
-    <section class="character-section proxy-section" id="proxy" data-kind="代理">
-      <div class="section-heading"><div class="section-number">01</div><div><p class="eyebrow">PERSONAL AVATARS</p><h2>代理 <span>PROXY</span></h2></div><span class="section-count" id="proxy-count">00 CHARACTERS</span></div>
-      <div class="character-grid" id="proxy-grid"></div>
-      <p class="empty-section" id="proxy-empty" hidden>代理キャラクターはまだ登録されていません。</p>
-    </section>
-
-    <section class="character-section oc-section" id="originals" data-kind="OC">
-      <div class="section-heading"><div class="section-number">02</div><div><p class="eyebrow">ORIGINAL CHARACTERS</p><h2>OC <span>ORIGINALS</span></h2></div><span class="section-count" id="oc-count">00 CHARACTERS</span></div>
-      <div class="character-grid" id="oc-grid"></div>
-      <p class="empty-section" id="oc-empty" hidden>OCキャラクターはまだ登録されていません。</p>
+      <p class="page-intro" id="page-intro">代理とOCをまとめて掲載しています。</p>
+      <div class="directory-meta"><span class="section-count" id="character-count">00 CHARACTERS</span><span class="directory-code">ARCHIVE / 001—∞</span></div>
+      <div class="character-grid" id="character-grid"></div>
+      <p class="no-results" id="no-results" hidden>該当するキャラクターがいません。</p>
     </section>
   </main>
-
-  <footer class="footer"><a class="brand" href="#top"><span class="brand-mark">O</span><span>OITAN <i>／</i> ARCHIVE</span></a><a class="back-top" href="#top">BACK TO TOP ↑</a><span>AN ONGOING CHARACTER INDEX · 2026</span></footer>
-
-  <dialog id="character-dialog" class="detail-dialog" aria-labelledby="dialog-name">
-    <button class="dialog-close" aria-label="閉じる">×</button>
-    <div id="dialog-content"></div>
-  </dialog>
+  <footer class="footer"><a class="brand" href="#top"><span class="brand-mark">O</span><span>OITAN <i>／</i> ARCHIVE</span></a><a class="back-top" href="#top">BACK TO TOP ↑</a><span>MY CHARACTERS · 2026</span></footer>
+  <dialog id="character-dialog" class="detail-dialog" aria-labelledby="dialog-name"><button class="dialog-close" aria-label="閉じる">×</button><div id="dialog-content"></div></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="data.js"></script>
   <script src="app.js"></script>

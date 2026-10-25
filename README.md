@@ -1,19 +1,20 @@
 # OITAN — CHARACTER ARCHIVE
 
-代理キャラクターとOCを分けて掲載する、スマートフォン対応の創作キャラクター紹介サイトです。プロットに登場する人物も `kind: "OC"` で登録できます。
+代理キャラクターとOCを別ページに分けて掲載する、スマートフォン対応の創作キャラクター紹介サイトです。`index.html` がALL、`proxy.html` が代理、`oc.html` がOCの一覧ページです。プロットに登場する人物も `kind: "OC"` で登録できます。
 
 ## キャラクターを追加・編集する
 
 GitHub上で `data.js` を開き、鉛筆アイコンから編集します。キャラクター情報は `characters` の配列に追加します。
 
 ```js
-{ id: "new-character", no: "007", name: "新しい子", kind: "OC", image: "new-character.jpg", summary: "一覧に出す短い紹介", profile: "プロフィール本文", prompt: "コピー用プロンプト", promptTags: ["髪型", "衣装", "構図"] }
+{ id: "new-character", no: "007", name: "新しい子", kind: "OC", image: "new-character.jpg", summary: "一覧に出す短い紹介", profile: "プロフィール本文", appearancePrompt: "容姿プロンプト", appearanceTags: ["髪型", "目の色"], outfitPrompt: "服装プロンプト", outfitTags: ["衣装"] }
 ```
 
 - `kind` は `代理` または `OC`。プロットキャラクターもOC欄に登録します。
 - 画像ファイルはリポジトリに `images` フォルダを作って入れ、`image` にファイル名を書きます。画像なしなら頭文字の仮画像を表示します。
 - `summary` は一覧カードの短い説明です。空欄ならカード上は省略されます。
-- 詳細画面ではプロフィールをコピーできます。`prompt` を入力すると、タグ付きプロンプトの表示・コピー欄も追加されます。
+- キャラクターカードの「PROMPT +」から専用ページを開きます。`appearancePrompt` と `outfitPrompt` は別々のBOXに表示され、それぞれ個別にコピーできます。項目タグは `appearanceTags` と `outfitTags` に記入します。
+- 古いデータの `prompt` と `promptTags` も容姿BOX用として引き続き表示されます。
 - `no` は一覧用の番号です。カードの順番は `characters` の並び順になります。
 
 保存時に **Commit changes** を押すと、GitHub Pagesが自動で更新されます。
