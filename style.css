@@ -40,3 +40,21 @@ body{background-color:#08070a;background-image:radial-gradient(ellipse at 72% 0%
 :root{--sans:"WDXL Lubrifont JP N","Noto Sans JP",sans-serif;--display:"WDXL Lubrifont JP N","Noto Sans JP",sans-serif}
 body,.spec-prompt{font-family:var(--sans);font-weight:400}
 .file-information h1,.hero h1,.directory h2,.section-heading h2,.detail-title-row h2,.card-name{font-family:var(--display);font-weight:400}
+
+
+/* Editorial digital direction from the visual reference: charcoal panels, tall image, and condensed display labels. */
+:root{--display-en:"Bebas Neue",Impact,sans-serif}
+.record-main{max-width:1320px;padding-top:34px}
+.record-meta{font-family:var(--display-en);font-size:15px;letter-spacing:.16em;color:#e9e7ed;border-bottom:1px solid #77737b;padding:0 0 12px;margin:17px 0 22px}
+.character-file-layout{grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:0;align-items:stretch}
+.file-information{grid-column:1;grid-row:1;background:#252629;padding:clamp(22px,3.2vw,44px);border-left:2px solid var(--purple);}
+.file-portrait{grid-column:2;grid-row:1;padding:0;border:0;background:#08070a;box-shadow:none;overflow:hidden}
+.file-portrait:before{inset:15px;border-color:rgba(255,255,255,.7)}
+.file-portrait:after{content:"";position:absolute;right:0;top:10%;width:82px;height:1px;background:#f5f2f7;transform:rotate(-48deg);transform-origin:right center;box-shadow:-17px 17px 0 rgba(255,255,255,.7);pointer-events:none}
+.file-portrait img,.file-portrait-placeholder{height:100%;min-height:650px;aspect-ratio:auto;object-fit:cover}
+.file-information h1{font-size:clamp(46px,6vw,78px);margin-bottom:20px}
+.file-information>.eyebrow,.spec-head .eyebrow,.spec-index,.copy-wide{font-family:var(--display-en);letter-spacing:.12em}
+.file-information>.eyebrow{font-size:15px}.spec-head .eyebrow{font-size:13px}.spec-head h2{font-size:22px}.spec-index{font-size:12px}
+.spec-block{border-top-color:#76677d}.spec-prompt{background:#151519;border-color:#73537e;font-size:13px}
+.copy-wide{font-size:13px;min-height:46px}
+@media(max-width:760px){.record-main{padding:18px 16px 42px}.character-file-layout{grid-template-columns:1fr;gap:0}.file-portrait{grid-column:1;grid-row:1;max-width:none}.file-portrait img,.file-portrait-placeholder{min-height:0;height:auto;aspect-ratio:4/5}.file-information{grid-column:1;grid-row:2;padding:22px 18px}.record-meta{font-size:12px}.file-information>.eyebrow{font-size:13px}.spec-head .eyebrow{font-size:12px}.copy-wide{font-size:12px}}
