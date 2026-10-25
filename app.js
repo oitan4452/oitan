@@ -5,10 +5,10 @@
   const tag = value => `<span class="tag">${esc(value)}</span>`;
   const page = document.body.dataset.page || "all";
   const pageInfo = {
-    all: { title: "All Characters", eyebrow: "THE COMPLETE INDEX", intro: "代理とOCをまとめて掲載しています。", kind: null },
-    proxy: { title: "代理", eyebrow: "PERSONAL AVATARS", intro: "代理キャラクターの一覧。", kind: "代理" },
-    oc: { title: "OC", eyebrow: "ORIGINAL CHARACTERS", intro: "オリジナルキャラクターの一覧。プロットに登場する人物もこちら。", kind: "OC" }
-  }[page] || { title: "All Characters", eyebrow: "THE COMPLETE INDEX", intro: "代理とOCをまとめて掲載しています。", kind: null };
+    all: { title: "All Characters", eyebrow: "THE COMPLETE INDEX", kind: null },
+    proxy: { title: "代理", eyebrow: "PERSONAL AVATARS", kind: "代理" },
+    oc: { title: "OC", eyebrow: "ORIGINAL CHARACTERS", kind: "OC" }
+  }[page] || { title: "All Characters", eyebrow: "THE COMPLETE INDEX", kind: null };
   let toastTimer;
 
   if (page === "character") {
@@ -18,7 +18,6 @@
 
   $("#page-title").textContent = pageInfo.title;
   $("#page-eyebrow").textContent = pageInfo.eyebrow;
-  $("#page-intro").textContent = pageInfo.intro;
   document.querySelectorAll("[data-nav]").forEach(link => {
     if (link.dataset.nav === page) { link.classList.add("active"); link.setAttribute("aria-current", "page"); }
   });
@@ -37,8 +36,7 @@
   }
 
   function render() {
-    const query = $("#character-search").value.trim().toLocaleLowerCase("ja");
-    const visible = characters.filter(c => (!pageInfo.kind || c.kind === pageInfo.kind) && `${c.name} ${c.summary || ""} ${c.profile || ""} ${(c.promptTags || []).join(" ")}`.toLocaleLowerCase("ja").includes(query));
+    const visible = characters.filter(c => !pageInfo.kind || c.kind === pageInfo.kind);
     $("#character-grid").innerHTML = visible.map(renderCard).join("");
     $("#character-count").textContent = `${String(visible.length).padStart(2, "0")} CHARACTERS`;
     $("#no-results").hidden = visible.length > 0;
@@ -90,7 +88,6 @@
     }));
   }
 
-  $("#character-search").addEventListener("input", render);
   $(".dialog-close").addEventListener("click", () => $("#character-dialog").close());
   $("#character-dialog").addEventListener("click", event => { if (event.target === $("#character-dialog")) $("#character-dialog").close(); });
   render();
