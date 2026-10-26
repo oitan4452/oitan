@@ -9,7 +9,9 @@ window.ARCHIVE_DATA = {
       "summary": "",
       "profile": "",
       "prompt": "",
-      "promptTags": []
+      "promptTags": [],
+      "appearancePrompt": "【Subject】1boy, solo, single male, young man, handsome, beautiful male, masculine\n【Face】sharp jawline, defined jaw, slender face, (pale skin:1.3), (fair skin:1.2)\n【Hair】black hair, medium black hair, layered black hair, slightly messy hair, no bangs, forehead visible, front hair swept aside, long front strands, hair framing the face, short back hair, very short back hair, trimmed nape, cropped nape, clean neckline, nape fully visible, no mullet, no long back hair\n【Eyes / Expression】dark eyes, very dark irises, half-lidded eyes, narrow eyes, sharp eyes, aegyo sal, faint smirk, slightly open mouth, single fang, one-sided fang, visible upper canine\n【Accessories】multiple ear piercings, small silver earrings, dangling earring",
+      "showOutfit": false
     },
     {
       "id": "mizuiro",
@@ -20,7 +22,9 @@ window.ARCHIVE_DATA = {
       "summary": "",
       "profile": "",
       "prompt": "",
-      "promptTags": []
+      "promptTags": [],
+      "appearancePrompt": "【Subject / Face】1man, solo, man in his 30s, handsome, beautiful male, androgynous facial features, masculine body, well-built male body, broad shoulders, defined shoulders, moderately muscular, toned body, slender face, pale skin, delicate facial features, defined jawline, mature facial features\n【Hair】(light blue hair:1.4), (pastel blue hair:1.3), (short hair:1.2), layered hair, heavily layered hair, center-parted hair, parted bangs, long parted bangs, long face-framing bangs, long front strands, sweeping front strands, curved bangs, wispy bangs, tousled hair, messy layered hair, spiky side strands, outward-flipped hair ends, short nape\n【Eyes / Expression】embarrassed expression, flustered, blushing, heavy blush, slightly furrowed brows, shy eyes, uneasy gaze, lips pressed together",
+      "showOutfit": false
     },
     {
       "id": "fubin",
@@ -31,18 +35,22 @@ window.ARCHIVE_DATA = {
       "summary": "",
       "profile": "",
       "prompt": "",
-      "promptTags": []
+      "promptTags": [],
+      "appearancePrompt": "【Subject / Face】1man, solo, adult male, handsome, masculine, pale skin, slender face, defined jawline, straight nose, slightly parted lips, small visible canine\n【Hair】dark red hair, deep crimson hair, medium-short hair, voluminous hair, extremely messy hair, tousled hair, thick hair, long messy bangs, uneven bangs, bangs partially covering one eye, wild outward-flipped hair ends, curled hair tips, messy side hair, messy short back hair\n【Eyes / Expression】tired eyes, half-lidded eyes, heavy-lidded eyes, narrow eyes, prominent under-eye shading, long eyelashes, exhausted expression, distant gaze, looking away, slightly open mouth\n【Face / Details】small facial scratches, thin scars, minor wounds, scratches on neck",
+      "showOutfit": false
     },
     {
       "id": "nezumi",
       "no": "04",
       "name": "ねずみちゃん",
       "kind": "OC",
-      "image": "",
+      "image": "nezumi.png",
       "summary": "",
       "profile": "",
       "prompt": "",
-      "promptTags": []
+      "promptTags": [],
+      "appearancePrompt": "【Subject / Face】1girl, solo, rat beastgirl, mouse girl, cute girl, soft feminine features\n【Hair】very light blue-white hair, pale icy blue hair, short bob, bob cut, layered bob, slightly messy hair, soft tousled hair, not curly\n【Eyes / Expression】red eyes, red irises, large eyes, soft gaze\n【Animal Features】large mouse ears, mouse tail, no human ears\n【Accessories】small silver piercings attached to the mouse ears, multiple tiny silver ear piercings on the outer edges of the mouse ears, delicate silver hoops and studs, subtle jewelry, mouse-ear piercings only\n\n【Negative】(human ears:1.5), (normal human ears:1.5), (visible human ears:1.5), extra ears, multiple pairs of ears, duplicate ears, four ears, additional ears, human ear piercings, piercings on human ears, facial piercings",
+      "showOutfit": false
     },
     {
       "id": "tsubaki",
@@ -53,7 +61,10 @@ window.ARCHIVE_DATA = {
       "summary": "",
       "profile": "",
       "prompt": "",
-      "promptTags": []
+      "promptTags": [],
+      "appearancePrompt": "【Subject】1man, solo, adult male, young adult male, handsome male, stylish male, slim build, lean body\n\n【Face】beautiful male, androgynous male, refined face, pale skin, slender face, sharp jawline, narrow chin, straight nose, high nose bridge, delicate facial features, thin lips, narrow lips, subtle lips, subtle lip contour, relaxed mouth, smooth skin, long eyelashes\n\n【Hair】black hair, deep black hair, center part, clean center part, see-through bangs, thin front strands, forehead visible, face-opening bangs, strands parted away from the eyes, lightly swept-back bangs, slightly backward-flowing front strands, long top hair, top volume, high disconnected undercut, shaved sides, short back hair, exposed nape\n\n【Eyes / Expression】gray eyes, pale gray eyes, cool gray eyes, narrow eyes, half-lidded eyes, calm expression, cool expression, aloof expression, soft gaze, slightly tired eyes\n\n【Accessories】multiple earrings, ear gauges, silver necklaces, layered necklaces, pendant necklace, rings, wristwatch\n\n【Body Details】black tribal tattoo, bold tribal tattoo, sharp tribal patterns, flowing black tribal lines, tribal tattoo on the side of the neck, tribal tattoo on the arms, tribal tattoo on the hands, finger tattoos, detailed black ink tattoo",
+      "showOutfit": true,
+      "outfitPrompt": "【Outfit】black tight-fitting high-neck top, cropped black futuristic jacket, short voluminous jacket, structured oversized shoulders, open jacket, exposed waist, low-rise loose black cargo pants, baggy cargo pants, ankles exposed, oversized black low-top sneakers, chunky soles, futuristic streetwear, retro cyberpunk fashion, tactical utility belt around the hips, multiple utility pouches attached to the belt, heavy metal buckles, multiple tactical straps wrapped around one thigh, layered thigh belts, buckle-fastened thigh straps, asymmetrical harness details"
     },
     {
       "id": "female-proxy",
@@ -64,18 +75,24 @@ window.ARCHIVE_DATA = {
       "summary": "",
       "profile": "",
       "prompt": "",
-      "promptTags": []
+      "promptTags": [],
+      "appearancePrompt": "【Subject】1girl, solo, adult woman, petite build, slender body, delicate proportions, pale skin\n\n【Face】beautiful doll-like woman, delicate youthful face, soft rounded facial contours, small face, softly rounded cheeks, tiny delicate nose, small chin, porcelain skin, soft pink blush, small delicate lips, naturally thin lips, subtle natural pink lip color\n\n【Hair】silver-white hair, long straight hair, very long hair extending past the hips, high bun hairstyle, small twisted bun on top of the head, long straight back hair flowing down from the bun, straight bangs, long face-framing side strands, silky smooth hair, subtle hair shine\n\n【Eyes / Expression】large pale blue-gray eyes, round almond-shaped eyes, soft droopy eyes, long delicate eyelashes, pink eyeshadow, subtle under-eye blush, gentle melancholic gaze, dreamy expression, relaxed eyelids, neutral mouth, no smile",
+      "showOutfit": true,
+      "outfitPrompt": "【Accessories】long dangling earrings, no hat, no hair ornaments, no eyepatch\n【Outfit】black and deep purple Chinese-inspired gothic mini dress, fitted short qipao dress, high mandarin collar, intricate purple floral embroidery, purple flower patterns, black lace details, decorative frog closures, asymmetric neckline, both shoulders exposed, symmetrical detached oversized black puff sleeves, matching off-shoulder balloon sleeves on both arms, voluminous sleeves gathered at the upper arms, fitted black cuffs, black fingerless gloves, short fitted skirt, black fishnet stockings, black thigh garter with small ruffles, tall black knee-high boots, textured black leather boots, metallic studs, pointed toes"
     },
     {
       "id": "cat",
       "no": "07",
       "name": "猫くん",
       "kind": "OC",
-      "image": "",
+      "image": "cat.png",
       "summary": "",
       "profile": "",
       "prompt": "",
-      "promptTags": []
+      "promptTags": [],
+      "showOutfit": true,
+      "appearancePrompt": "【Subject】1boy, solo, single character, only one person, cute boy, delicate boyish face, youthful masculine facial features, small face, softly tapered jawline, subtle pointed chin, small nose, small delicate mouth, calm expression, androgynous pretty boy\n【Hair】short fluffy layered hair, naturally straight hair, soft flowing hair strands, slightly tousled hair, subtle outward flicks at the ends, natural hair movement, soft volume at the crown, center-parted bangs, middle part hairstyle, long parted bangs gently falling beside the face, calico-colored hair, predominantly orange hair, large distinct white and black hair sections, asymmetrical tricolor hair pattern, clearly separated orange white and black hair strands\n【Eyes】cat-like eyes, yellow eyes, (vertical slit pupils:1.4), (thin black vertical pupils:1.3), narrow elliptical pupils, elongated almond-shaped eyes, slightly narrow eyes, half-lidded eyes, subtly upturned outer corners, relaxed gaze, very thin delicate eyebrows, fine eyebrow lines, slender eyebrows\n【Animal Features】one pair of large triangular cat ears, orange and white cat ears with black patches, pink inner ears, calico cat tail, orange white and black fur patches on tail\n【Accessories】silver dangling fishbone earrings, small silver fish skeleton charms hanging from the earlobes, delicate metallic details",
+      "outfitPrompt": "【Outfit】white oversized hoodie, hooded sweatshirt, oversized Japanese patchwork jacket worn over the hoodie, extremely wide kimono-style sleeves, loose oversized silhouette, dropped shoulders, open jacket, colorful traditional Japanese textile patterns, intricate patchwork of contrasting fabric panels, abstract floral patterns, geometric motifs, dusty blue, ivory, burnt orange and black color palette, black cropped harem pants, loose baggy fit around the hips and thighs, dropped crotch, tapered legs, gathered cuffs below the knees, three-quarter length pants, exposed ankles, slightly oversized white sneakers, chunky white sneakers, thick soles"
     },
     {
       "id": "rabbit",
@@ -86,7 +103,10 @@ window.ARCHIVE_DATA = {
       "summary": "",
       "profile": "",
       "prompt": "",
-      "promptTags": []
+      "promptTags": [],
+      "showOutfit": true,
+      "appearancePrompt": "【Subject】1boy, solo, young adult male, androgynous male, slender body, slim waist, pale skin, bunny boy\n【Face】beautiful androgynous face, delicate feminine facial features, small face, sharp chin, pale skin, subtle dark circles under eyes, tired-looking face, slightly hollow cheeks, no eyebrows, eyebrowless, smiling eyes, raised cheeks, playful expression\n【Eyes】white eyes, white irises, narrow elongated eyes, heavy drooping upper eyelids, half-lidded eyes, slightly downturned outer eye corners, sanpaku eyes, partially exposed sclera, thick upper eyelid lines, defined lower eyelid lines, delicate lower eyelashes, languid seductive gaze, provocative sleepy eyes\n【Hair】white hair, short spiky slicked-back undercut, shaved sides, closely cropped temples, short voluminous top hair, thick separated hair clumps, lifted hair roots, short swept-back hair sections, sharp upward-curving hair tips, messy sculpted hair volume, short asymmetrical front strands, exposed undercut, short tapered nape\n【Eyes】blue eyes, narrow eyes, half-lidded eyes, sharp gaze\n【Animal Features】long upright rabbit ears, large bunny ears, fluffy inner ear fur\n【Accessories】black vinyl tape covering the mouth, two strips of black adhesive tape crossed diagonally over the lips, X-shaped black tape over the mouth, glossy black tape surface, tape firmly attached to the skin, multiple silver ear piercings, numerous silver hoop earrings, multiple silver ear studs, layered silver chain necklaces, black leather choker, multiple silver rings, silver chain bracelets, double black leather belts, dangling silver wallet chains",
+      "outfitPrompt": "【Outfit】black turtleneck inner top, white button-up shirt layered over the black turtleneck, oversized Japanese patchwork jacket worn over the shirt, extremely wide kimono-style sleeves, loose oversized silhouette, dropped shoulders, open jacket, colorful traditional Japanese textile patterns, intricate patchwork of contrasting fabric panels, abstract floral patterns, geometric motifs, red, mustard yellow, black and muted teal color palette, black distressed leather skinny pants, tight-fitting black leather pants, heavily ripped leather pants, large horizontal tears along the thighs and knees, black short boots, metal spikes attached to the boots, pointed metal studs decorating the boots"
     },
     {
       "id": "yun-sensei",

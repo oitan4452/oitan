@@ -26,7 +26,7 @@
   function renderCard(c) {
     const searchText = `${c.name} ${c.summary || ""} ${c.profile || ""} ${(c.promptTags || []).join(" ")}`.toLocaleLowerCase("ja");
     const portrait = c.image
-      ? `<img src="images/${esc(c.image)}" alt="${esc(c.name)}" loading="lazy">`
+      ? `<img src="${esc(c.image)}" alt="${esc(c.name)}" loading="lazy">`
       : `<span class="portrait-placeholder"><i>${esc(c.name.slice(0, 1))}</i><small>PORTRAIT<br>NOT SET</small></span>`;
     const note = c.summary ? `<span class="card-summary">${esc(c.summary)}</span>` : "";
     const badges = (c.promptTags || []).slice(0, 2).map(tag).join("");
@@ -48,7 +48,7 @@
 
   function openCharacter(c) {
     if (!c) return;
-    const image = c.image ? `<img class="detail-cover" src="images/${esc(c.image)}" alt="${esc(c.name)}">` : "";
+    const image = c.image ? `<img class="detail-cover" src="${esc(c.image)}" alt="${esc(c.name)}">` : "";
     const profile = c.profile || c.summary || "プロフィールはまだ登録されていません。";
     if (c.kind === "プロット") {
       const plotIntro = c.plotIntro || "プロット紹介はまだ登録されていません。";
@@ -84,7 +84,7 @@
       return;
     }
     const portrait = c.image
-      ? `<img src="images/${esc(c.image)}" alt="${esc(c.name)}">`
+      ? `<img src="${esc(c.image)}" alt="${esc(c.name)}">`
       : `<div class="file-portrait-placeholder"><span>${esc(c.name.slice(0,1))}</span><small>PORTRAIT / ${esc(c.no || "—")}</small></div>`;
     const appearance = c.appearancePrompt || c.prompt || "容姿プロンプトはまだ登録されていません。";
     const outfit = c.outfitPrompt || "服装プロンプトはまだ登録されていません。";
@@ -94,7 +94,7 @@
       return;
     }
     const promptBox = (type, label, title, value, tags) => `<section class="spec-block"><div class="spec-head"><div><p class="eyebrow">PROMPT DATA / ${type}</p><h2>${label}</h2></div><span class="spec-index">TXT / ${esc(c.no || "—")}</span></div>${tags?.length ? `<div class="prompt-tags">${tags.map(tag).join("")}</div>` : ""}<pre class="spec-prompt">${esc(value)}</pre><button class="copy-wide" type="button" data-copy="${type}">▣　COPY ${title} TO CLIPBOARD ↗</button></section>`;
-    content.innerHTML = `<a class="file-back" href="${kindPage}">← BACK TO ${c.kind === "代理" ? "代理" : "OC"} INDEX</a><div class="record-meta"><span>CHARACTER RECORD / ${esc(c.no || "—")}</span><span>STATUS: AVAILABLE</span></div><div class="character-file-layout"><div class="file-portrait">${portrait}</div><div class="file-information"><p class="eyebrow">SPECIMEN NO. ${esc(c.no || "—")} / ${c.kind === "OC" ? "ORIGINAL CHARACTER" : "PERSONAL AVATAR"}</p><h1>${esc(c.name)}</h1><div class="file-summary">${esc(c.summary || c.profile || "")}</div><div class="file-tags">${(c.promptTags || []).map(tag).join("")}</div>${promptBox("APPEARANCE", "容姿", "APPEARANCE", appearance, c.appearanceTags || c.promptTags)}${promptBox("OUTFIT", "服装", "OUTFIT", outfit, c.outfitTags || [])}</div></div>`;
+    content.innerHTML = `<a class="file-back" href="${kindPage}">← BACK TO ${c.kind === "代理" ? "代理" : "OC"} INDEX</a><div class="record-meta"><span>CHARACTER RECORD / ${esc(c.no || "—")}</span><span>STATUS: AVAILABLE</span></div><div class="character-file-layout"><div class="file-portrait">${portrait}</div><div class="file-information"><p class="eyebrow">SPECIMEN NO. ${esc(c.no || "—")} / ${c.kind === "OC" ? "ORIGINAL CHARACTER" : "PERSONAL AVATAR"}</p><h1>${esc(c.name)}</h1><div class="file-summary">${esc(c.summary || c.profile || "")}</div><div class="file-tags">${(c.promptTags || []).map(tag).join("")}</div>${promptBox("APPEARANCE", "容姿", "APPEARANCE", appearance, c.appearanceTags || c.promptTags)}${c.showOutfit ? promptBox("OUTFIT", "服装", "OUTFIT", outfit, c.outfitTags || []) : ""}</div></div>`;
     content.querySelectorAll("[data-copy]").forEach(button => button.addEventListener("click", () => {
       const value = button.dataset.copy === "APPEARANCE" ? appearance : outfit;
       copyText(value, `${button.dataset.copy} COPIED`);
