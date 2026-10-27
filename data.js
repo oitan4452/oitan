@@ -31,7 +31,7 @@ window.ARCHIVE_DATA = {
       "no": "03",
       "name": "赤色くん",
       "kind": "OC",
-      "image": "fubin.png",
+      "image": "akairo.png",
       "summary": "",
       "profile": "",
       "prompt": "",
@@ -79,7 +79,8 @@ window.ARCHIVE_DATA = {
       "promptTags": [],
       "appearancePrompt": "【Subject】1girl, solo, adult woman, petite build, slender body, delicate proportions, pale skin\n\n【Face】beautiful doll-like woman, delicate youthful face, soft rounded facial contours, small face, softly rounded cheeks, tiny delicate nose, small chin, porcelain skin, soft pink blush, small delicate lips, naturally thin lips, subtle natural pink lip color\n\n【Hair】silver-white hair, long straight hair, very long hair extending past the hips, high bun hairstyle, small twisted bun on top of the head, long straight back hair flowing down from the bun, straight bangs, long face-framing side strands, silky smooth hair, subtle hair shine\n\n【Eyes / Expression】large pale blue-gray eyes, round almond-shaped eyes, soft droopy eyes, long delicate eyelashes, pink eyeshadow, subtle under-eye blush, gentle melancholic gaze, dreamy expression, relaxed eyelids, neutral mouth, no smile",
       "showOutfit": true,
-      "outfitPrompt": "【Accessories】long dangling earrings, no hat, no hair ornaments, no eyepatch\n【Outfit】black and deep purple Chinese-inspired gothic mini dress, fitted short qipao dress, high mandarin collar, intricate purple floral embroidery, purple flower patterns, black lace details, decorative frog closures, asymmetric neckline, both shoulders exposed, symmetrical detached oversized black puff sleeves, matching off-shoulder balloon sleeves on both arms, voluminous sleeves gathered at the upper arms, fitted black cuffs, black fingerless gloves, short fitted skirt, black fishnet stockings, black thigh garter with small ruffles, tall black knee-high boots, textured black leather boots, metallic studs, pointed toes"
+      "outfitPrompt": "【Accessories】long dangling earrings, no hat, no hair ornaments, no eyepatch\n【Outfit】black and deep purple Chinese-inspired gothic mini dress, fitted short qipao dress, high mandarin collar, intricate purple floral embroidery, purple flower patterns, black lace details, decorative frog closures, asymmetric neckline, both shoulders exposed, symmetrical detached oversized black puff sleeves, matching off-shoulder balloon sleeves on both arms, voluminous sleeves gathered at the upper arms, fitted black cuffs, black fingerless gloves, short fitted skirt, black fishnet stockings, black thigh garter with small ruffles, tall black knee-high boots, textured black leather boots, metallic studs, pointed toes",
+      "shortHairPrompt": "【Subject】1girl, solo, adult woman, petite build, slender body, delicate proportions, pale skin, same woman appearing in both panels\n【Face】beautiful doll-like woman, delicate youthful face, soft rounded facial contours, small face, softly rounded cheeks, tiny delicate nose, small chin, porcelain skin, soft pink blush, small delicate lips, naturally thin lips, subtle natural pink lip color\n【Hair】silver-white hair, short fluffy wavy bob, shoulder-length hair, voluminous curled ends, straight blunt bangs, soft layered side locks, outward-flipped side strands, subtle dark purple hair tips\n【Eyes / Expression】large pale blue-gray eyes, round almond-shaped eyes, soft droopy eyes, long delicate eyelashes, pink eyeshadow, subtle under-eye blush, gentle melancholic gaze, dreamy expression, relaxed eyelids, neutral mouth, no smile"
     },
     {
       "id": "cat",
