@@ -29,15 +29,16 @@ window.ARCHIVE_DATA = {
     {
       "id": "fubin",
       "no": "03",
-      "name": "不憫くん",
+      "name": "赤色くん",
       "kind": "OC",
       "image": "fubin.png",
       "summary": "",
       "profile": "",
       "prompt": "",
       "promptTags": [],
-      "appearancePrompt": "【Subject / Face】1man, solo, adult male, handsome, masculine, pale skin, slender face, defined jawline, straight nose, slightly parted lips, small visible canine\n【Hair】dark red hair, deep crimson hair, medium-short hair, voluminous hair, extremely messy hair, tousled hair, thick hair, long messy bangs, uneven bangs, bangs partially covering one eye, wild outward-flipped hair ends, curled hair tips, messy side hair, messy short back hair\n【Eyes / Expression】tired eyes, half-lidded eyes, heavy-lidded eyes, narrow eyes, prominent under-eye shading, long eyelashes, exhausted expression, distant gaze, looking away, slightly open mouth\n【Face / Details】small facial scratches, thin scars, minor wounds, scratches on neck",
-      "showOutfit": false
+      "appearancePrompt": "【Subject】1boy, expressive face, big eyes, simple face, red eyes, visible scar on face, teeth, collarbone, navel\n【Hair】very long hair, messy hair, hair down, red hair\n【Accessories】goggles on head, choker, ear piercing, black nail polish",
+      "showOutfit": true,
+      "outfitPrompt": "【Outfit】plain white tank top, black leather biker jacket, long sleeves, asymmetrical front zipper, silver metal zippers, wide notched lapels, open jacket, streetwear, belt with H-shaped metal buckle, fingerless gloves"
     },
     {
       "id": "nezumi",
@@ -226,7 +227,7 @@ window.ARCHIVE_DATA = {
       "image": "jay.png",
       "summary": "",
       "plotIntro": "【CLEANERS】掃除屋\n\n21XX年。サイバー戦争を経た荒廃都市。\n\n身体の機械化が当たり前となった世界で、表社会では解決できない厄介事を報酬次第で引き受ける者たちがいる。\n\n通称「掃除屋（CLEANERS）」。\n\n護衛、回収、捜索、時には違法な仕事まで。\n\nそんな掃除屋として生きる、二人の男とあなたの物語。",
-      "profile": "【名前】\nJ／ジェイ\n\n【基本情報】\n年齢｜28歳\n身長｜183cm\n担当｜前衛・近接戦闘\n\n【外見】\n黒髪のセンターパートに黄緑色の瞳。頬には斜めの傷があり、両膝から下は機械義足。\n\n【人物紹介】\n無口で無愛想、口も悪い。必要以上に喋らず、感情を表に出すことも少ない。\n冷たく見えるが、面倒見のよさは言葉より行動に表れるタイプ。\n\n【好きなもの】\nバイク\n\n【セリフ】\n「怪我してんだろ。……いいから見せろ」",
+      "profile": "【名前】\nJ／ジェイ\n\n【基本情報】\n年齢｜28歳\n身長｜183cm\n担当｜前衛・近接戦闘\n\n【外見】\n黒髪のセンターパートに黄緑色の瞳。頬には斜めの傷があり、両膝から下は機械義足。\n\n【人物紹介】\n無口で無愛想、口も悪い。必要以上に喋らず、感情を表に出すことも少ない。\n冷たく見えるが、面倒見のよさは言葉より行動に表れるタイプ。\n\n【好きなもの】\nバイク、バイクの整備、静かな時間\n\n【嫌いなもの】\n無駄話、約束を破ること、仲間を危険にさらすこと\n\n【セリフ】\n「怪我してんだろ。……いいから見せろ」",
       "plotUrl": "https://zeta-ai.io/ja/plots/f343942b-1f18-46c9-ac48-4a670ad495c5/profile?share_id=d7i3i4cu"
     },
     {
@@ -237,7 +238,7 @@ window.ARCHIVE_DATA = {
       "image": "bee.png",
       "summary": "",
       "plotIntro": "【CLEANERS】掃除屋\n\n21XX年。サイバー戦争を経た荒廃都市。\n\n身体の機械化が当たり前となった世界で、表社会では解決できない厄介事を報酬次第で引き受ける者たちがいる。\n\n通称「掃除屋（CLEANERS）」。\n\n護衛、回収、捜索、時には違法な仕事まで。\n\nそんな掃除屋として生きる、二人の男とあなたの物語。",
-      "profile": "【名前】\nB／ビー\n\n【基本情報】\n年齢｜27歳\n身長｜187cm\n担当｜前衛・索敵\n\n【外見】\n無造作な暗赤色の短髪に、銀白色の人工眼。左腕は肩から指先まで機械義手。\n\n【人物紹介】\n陽気で人懐っこく、軽口や冗談が多い。距離感が近く、初対面でも気さくに接する。\n飄々としているが、仕事では状況判断が早く、頼れる実力者。\n\n【セリフ】\n「よっ、相棒。今日も派手に稼ごうぜ？」",
+      "profile": "【名前】\nB／ビー\n\n【基本情報】\n年齢｜27歳\n身長｜187cm\n担当｜前衛・索敵\n\n【外見】\n無造作な暗赤色の短髪に、銀白色の人工眼。左腕は肩から指先まで機械義手。\n\n【人物紹介】\n陽気で人懐っこく、軽口や冗談が多い。距離感が近く、初対面でも気さくに接する。\n飄々としているが、仕事では状況判断が早く、頼れる実力者。\n\n【好きなもの】\n仲間との軽口、賑やかな場所、仕事終わりの息抜き\n\n【嫌いなもの】\n退屈な待ち時間、堅苦しい空気、仲間を見捨てること\n\n【セリフ】\n「よっ、相棒。今日も派手に稼ごうぜ？」",
       "plotUrl": "https://zeta-ai.io/ja/plots/f343942b-1f18-46c9-ac48-4a670ad495c5/profile?share_id=d7i3i4cu"
     },
     {

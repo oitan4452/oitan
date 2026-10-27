@@ -26,7 +26,7 @@
   function renderCard(c) {
     const searchText = `${c.name} ${c.summary || ""} ${c.profile || ""} ${(c.promptTags || []).join(" ")}`.toLocaleLowerCase("ja");
     const portrait = c.image
-      ? `<img src="${esc(c.image)}" alt="${esc(c.name)}" loading="lazy">`
+      ? `<img src="images/${esc(c.image)}" alt="${esc(c.name)}" loading="lazy">`
       : `<span class="portrait-placeholder"><i>${esc(c.name.slice(0, 1))}</i><small>PORTRAIT<br>NOT SET</small></span>`;
     const note = c.summary ? `<span class="card-summary">${esc(c.summary)}</span>` : "";
     const badges = (c.promptTags || []).slice(0, 2).map(tag).join("");
@@ -48,7 +48,7 @@
 
   function openCharacter(c) {
     if (!c) return;
-    const image = c.image ? `<img class="detail-cover" src="${esc(c.image)}" alt="${esc(c.name)}">` : "";
+    const image = c.image ? `<img class="detail-cover" src="images/${esc(c.image)}" alt="${esc(c.name)}">` : "";
     const profile = c.profile || c.summary || "プロフィールはまだ登録されていません。";
     if (c.kind === "プロット") {
       const plotIntro = c.plotIntro || "プロット紹介はまだ登録されていません。";
@@ -84,7 +84,7 @@
       return;
     }
     const portrait = c.image
-      ? `<img src="${esc(c.image)}" alt="${esc(c.name)}">`
+      ? `<img src="images/${esc(c.image)}" alt="${esc(c.name)}">`
       : `<div class="file-portrait-placeholder"><span>${esc(c.name.slice(0,1))}</span><small>PORTRAIT / ${esc(c.no || "—")}</small></div>`;
     const appearance = c.appearancePrompt || c.prompt || "容姿プロンプトはまだ登録されていません。";
     const outfit = c.outfitPrompt || "服装プロンプトはまだ登録されていません。";

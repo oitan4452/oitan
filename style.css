@@ -60,7 +60,7 @@ body,.spec-prompt{font-family:var(--sans);font-weight:400}
 @media(max-width:760px){.record-main{padding:18px 16px 42px}.character-file-layout{grid-template-columns:1fr;gap:0}.file-portrait{grid-column:1;grid-row:1;max-width:none}.file-portrait img,.file-portrait-placeholder{min-height:0;height:auto;aspect-ratio:4/5}.file-information{grid-column:1;grid-row:2;padding:22px 18px}.record-meta{font-size:12px}.file-information>.eyebrow{font-size:13px}.spec-head .eyebrow{font-size:12px}.copy-wide{font-size:12px}}
 
 /* Custom vector ornament: sparse edge graphics, with clear space around content. */
-body{background-image:url("decor-pattern.svg"),radial-gradient(ellipse at 72% 0%,rgba(105,35,143,.12),transparent 38%),linear-gradient(180deg,#09080c 0%,#07070a 48%,#08070a 100%);background-size:cover,auto,auto;background-position:center,center,center;background-repeat:no-repeat;background-attachment:fixed}
+body{background-image:url("images/decor-pattern.svg"),radial-gradient(ellipse at 72% 0%,rgba(105,35,143,.12),transparent 38%),linear-gradient(180deg,#09080c 0%,#07070a 48%,#08070a 100%);background-size:cover,auto,auto;background-position:center,center,center;background-repeat:no-repeat;background-attachment:fixed}
 @media(max-width:760px){body{background-size:auto 100vh,auto,auto;background-position:center top,center,center}}
 
 /* Category navigation sits immediately below the directory heading. */
