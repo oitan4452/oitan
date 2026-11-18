@@ -5,13 +5,14 @@ window.ARCHIVE_DATA = {
       "no": "01",
       "name": "代理くん",
       "kind": "代理",
-      "image": "proxy.png",
+      "image": "proxy-2079740808396039575.png",
       "summary": "",
       "profile": "",
       "prompt": "",
       "promptTags": [],
       "appearancePrompt": "【Subject】1boy, solo, single male, young man, handsome, beautiful male, masculine\n【Face】sharp jawline, defined jaw, slender face, (pale skin:1.3), (fair skin:1.2)\n【Hair】black hair, medium black hair, layered black hair, slightly messy hair, no bangs, forehead visible, front hair swept aside, long front strands, hair framing the face, short back hair, very short back hair, trimmed nape, cropped nape, clean neckline, nape fully visible, no mullet, no long back hair\n【Eyes / Expression】dark eyes, very dark irises, half-lidded eyes, narrow eyes, sharp eyes, aegyo sal, faint smirk, slightly open mouth, single fang, one-sided fang, visible upper canine\n【Accessories】multiple ear piercings, small silver earrings, dangling earring",
-      "showOutfit": false
+      "showOutfit": false,
+      "tsubakiPrompt": "【Subject】1boy, solo, single male, teenage boy, young boy, handsome boy, pretty boy, youthful masculine, slender, boyish\n\n【Face】youthful face, small face, softly tapered jawline, subtle pointed chin, delicate facial features, smooth skin, (pale skin:1.3), (fair skin:1.2)\n\n【Hair】black hair, medium short black hair, layered black hair, slightly messy hair, no bangs, forehead visible, front hair swept aside, long front strands, hair framing the face, short back hair, very short back hair, trimmed nape, cropped nape, clean neckline, nape fully visible\n\n【Eyes】dark eyes, very dark irises, half-lidded eyes, narrow eyes, slightly sleepy eyes, aegyo sal, sly sideways gaze, subtly narrowed eyes\n\n【Expression】(mischievous smirk:1.3), (asymmetrical grin:1.3), one corner of the mouth raised, sly boyish grin, slightly parted lips, single visible upper canine, one-sided fang, cheeky teasing expression, smug playful attitude, youthful impish expression\n\n【Accessories】multiple ear piercings, small silver earrings, dangling earring"
     },
     {
       "id": "mizuiro",
