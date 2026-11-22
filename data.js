@@ -107,7 +107,7 @@ window.ARCHIVE_DATA = {
       "no": "08",
       "name": "兎くん",
       "kind": "OC",
-      "image": "rabbit.png",
+      "image": "rabbit-2081088881804303267-3.png",
       "summary": "",
       "profile": "",
       "prompt": "",
