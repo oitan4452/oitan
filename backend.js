@@ -65,4 +65,4 @@ window.OitanBackend = {
   async login(email,password) { checked(await db().auth.signInWithPassword({email,password})); if(!await owner()){await db().auth.signOut();throw new Error('このアカウントには編集権限がありません。');} },
   async logout() { checked(await db().auth.signOut()); }
 };
-await import('./vault.js');
+await import('./vault.js?v=20261127');

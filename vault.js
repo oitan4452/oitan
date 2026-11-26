@@ -15,7 +15,7 @@
   let favorites = new Set();
   let isAdmin = false;
   let loading = true;
-  let currentCategory = 'all';
+  let currentCategory = ['pose','outfit','expression','reference'].includes(new URLSearchParams(location.search).get('category')) ? new URLSearchParams(location.search).get('category') : 'all';
   let favoriteOnly = false;
   let searchTerm = '';
   let sortOrder = 'default';
@@ -95,6 +95,8 @@
   function renderNav() {
     const items = allItems();
     $('#category-nav').innerHTML = categories.map(category => `<button class="nav-item ${currentCategory === category.id && !favoriteOnly ? 'active' : ''}" data-category="${category.id}" aria-pressed="${currentCategory === category.id && !favoriteOnly}"><span class="nav-icon" aria-hidden="true">${category.icon}</span><span>${category.id === 'all' ? 'すべて' : category.label}</span><span class="nav-count">${category.id === 'all' ? items.length : items.filter(item => item.category === category.id).length}</span></button>`).join('');
+    const paletteNav=$('#category-nav [data-category="palette"]');
+    if(paletteNav){const link=document.createElement('a');link.className=paletteNav.className;link.href='colors.html';link.innerHTML=paletteNav.innerHTML;link.setAttribute('aria-label','配色で遊ぶページを開く');paletteNav.replaceWith(link);}
     $('#favorite-count').textContent = items.filter(item => favorites.has(item.id)).length;
     $('#favorites-nav').classList.toggle('active',favoriteOnly);
     $('#favorites-nav').setAttribute('aria-pressed',String(favoriteOnly));
@@ -128,8 +130,22 @@
     $('#empty-copy').textContent = query ? '検索する言葉や分類を変えてみてください。' : favoriteOnly ? 'カードの星を押すと、ここに集まります。' : isAdmin ? '画像やプロンプトを保存して、素材庫を育てていこう。' : '公開された素材がここに並びます。';
     $('#add-empty').hidden = !isAdmin || Boolean(query) || favoriteOnly;
     $('#footer-count').textContent = loading ? '素材を読み込み中…' : `${items.length}件の素材を表示`;
+    renderGallery();
     document.title = `${favoriteOnly ? 'お気に入り' : category.label} — OITAN`;
   }
+  let gallerySignature='';
+  function renderGallery(){
+    const host=$('#hero-gallery');if(!host)return;
+    const images=allItems().filter(item=>['pose','outfit','expression'].includes(item.category)&&item.image);
+    const signature=images.map(item=>item.image).join('|');if(signature===gallerySignature)return;gallerySignature=signature;
+    if(!images.length){host.replaceChildren();$('#gallery-pause').hidden=true;return;}
+    const shuffled=images.map(item=>({item,key:Math.random()})).sort((a,b)=>a.key-b.key).slice(0,12).map(entry=>entry.item);
+    const track=shuffled.map(item=>'<img src="'+escapeHtml(item.image)+'" alt="" loading="lazy">').join('');
+    host.innerHTML='<div class="gallery-track"><div class="gallery-set">'+track+'</div><div class="gallery-set">'+track+'</div></div>';
+    $('#gallery-pause').hidden=false;
+  }
+  $('#gallery-pause')?.addEventListener('click',event=>{const paused=$('#hero-gallery').classList.toggle('paused');event.currentTarget.setAttribute('aria-pressed',String(paused));event.currentTarget.setAttribute('aria-label',paused?'背景画像の動きを再開する':'背景画像の動きを止める');event.currentTarget.textContent=paused?'▶':'Ⅱ';});
+  document.querySelectorAll('[data-browse]').forEach(link=>link.addEventListener('click',()=>{currentCategory=link.dataset.browse;favoriteOnly=false;searchTerm='';$('#search').value='';render();}));
   function section(title,text,copyId) {
     if (!text) return '';
     return `<section class="detail-section"><h3>${escapeHtml(title)}</h3><${copyId ? 'pre class="prompt-text"' : 'p class="detail-copy"'}>${escapeHtml(text)}</${copyId ? 'pre' : 'p'}>${copyId ? `<button class="copy-button" data-copy="${copyId}">コピーする</button>` : ''}</section>`;
