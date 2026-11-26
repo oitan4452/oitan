@@ -3,21 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#111016">
+<meta name="theme-color" content="#f7f5ef">
 <meta name="description" content="おいたんの創作素材ライブラリ。ポーズ、配色、衣装、表情、参考資料をまとめて保管。">
-<title>OITAN — 素材ライブラリ</title>
+<title>OITAN — 素材図鑑</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="vault.css?v=20261126-sections">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vault.css?v=20261126-paper">
+<link rel="stylesheet" href="paper.css?v=20261126-paper">
 <script src="config.js"></script><script type="module" src="backend.js"></script>
 </head>
 <body>
 <a class="skip-link" href="#library">ライブラリへ移動</a>
 <div class="app-shell">
 <aside class="sidebar">
-<a href="index.html" class="brand" aria-label="OITAN トップ"><span class="brand-symbol">O<span>+</span></span><span>OITAN<small>CREATIVE STORAGE</small></span></a>
-<p class="nav-caption">LIBRARY</p>
+<a href="index.html" class="brand" aria-label="OITAN トップ"><span class="brand-symbol" aria-hidden="true">O.</span><span>OITAN<small>創作のための素材図鑑</small></span></a>
+<p class="nav-caption">INDEX / 索引</p>
 <nav id="category-nav" aria-label="素材カテゴリ"></nav>
 <div class="sidebar-bottom">
 <button id="favorites-nav" class="nav-item"><span class="nav-icon">☆</span><span>お気に入り</span><span id="favorite-count" class="nav-count">0</span></button>
@@ -27,22 +28,22 @@
 </div>
 </aside>
 <div class="workspace">
-<header class="topbar"><div class="breadcrumb">OITAN <span>/</span> <span id="breadcrumb-label">素材ライブラリ</span></div><div class="top-actions"><a class="admin-login" id="admin-login" href="#admin-login-dialog">管理者ログイン</a><a class="admin-login" id="admin-logout" href="#logout" hidden>ログアウト</a><span class="local-label">PERSONAL ARCHIVE</span><button class="primary-button compact" id="add-top" hidden><span>＋</span> 素材を追加</button></div></header>
+<header class="topbar"><div class="breadcrumb">OITAN <span>/</span> <span id="breadcrumb-label">素材ライブラリ</span></div><div class="top-actions"><a class="admin-login" id="admin-login" href="#admin-login-dialog">管理者ログイン</a><a class="admin-login" id="admin-logout" href="#logout" hidden>ログアウト</a><span class="local-label">MATERIAL ATLAS</span><button class="primary-button compact" id="add-top" hidden><span>＋</span> 素材を追加</button></div></header>
 <main id="library">
-<section class="hero" aria-labelledby="hero-title"><div class="hero-copy"><p class="eyebrow"><span class="tiny-line"></span> YOUR CREATIVE INVENTORY</p><h1 id="hero-title">ひらめきを、<br><em>コレクション。</em></h1><p class="hero-description">ポーズも、色も、思いつきも。<br>次の創作につながる、自分だけの素材庫。</p><div class="hero-meta"><span class="hero-total" id="hero-total">0<span>ITEMS</span></span><span class="hero-meta-rule"></span><span class="hero-meta-text">見つけて、集めて、<br>またここから。</span></div></div><div class="hero-art material-hero" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="sample-panel panel-color"><span class="sample-label">COLOR PALETTE</span><div class="sample-swatches"><span></span><span></span><span></span><span></span></div><span class="sample-bottom">色を集める</span></div><div class="sample-panel panel-prompt"><span class="sample-label">PROMPT NOTES</span><div class="sample-lines"><i></i><i></i><i></i><i></i></div><span class="sample-bottom">ひらめきを残す</span></div><span class="art-cross cross-one">＋</span></div></section>
+<section class="hero" aria-labelledby="hero-title"><div class="hero-copy"><p class="eyebrow">OITAN / MATERIAL ATLAS</p><h1 id="hero-title">素材図鑑<span class="title-dot">.</span></h1><p class="hero-description">かたち、色、装い。創作の手がかりを集める。</p></div><div class="hero-meta"><span class="hero-total" id="hero-total">0<span>ITEMS</span></span><span class="hero-meta-text">収録素材</span></div></section>
 <section class="collection" aria-labelledby="collection-title">
 <div class="collection-heading"><div><p class="eyebrow" id="collection-eyebrow">THE COLLECTION</p><h2 id="collection-title">すべての素材 <span id="result-count"></span></h2></div><div class="view-toggle" aria-label="カードの大きさ"><button id="view-comfort" class="selected" aria-label="大きいカード" aria-pressed="true">▦</button><button id="view-dense" aria-label="小さいカード" aria-pressed="false">▤</button></div></div>
 <div class="filter-bar"><label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="名前・タグ・プロンプトで検索" autocomplete="off" aria-label="素材を検索"><kbd>/</kbd></label><label class="sort-label"><span class="sr-only">並び順</span><select id="sort"><option value="default">登録順</option><option value="newest">新しい順</option><option value="name">名前順</option></select><span aria-hidden="true">⌄</span></label></div>
 
 <div id="cards" class="card-grid"></div>
 <div id="empty-state" class="empty-state" hidden><div class="empty-symbol">＋</div><h3 id="empty-title">最初の素材を追加</h3><p id="empty-copy">画像やプロンプトを保存して、素材庫を育てていこう。</p><button class="primary-button" id="add-empty" hidden>素材を追加</button></div>
-<div class="collection-footer"><span id="footer-count"></span><span>OITAN / CREATIVE STORAGE</span></div>
+<div class="collection-footer"><span id="footer-count"></span><span>OITAN / 素材図鑑</span></div>
 </section>
 </main>
 </div>
 </div>
 <dialog id="detail-dialog" class="detail-dialog" aria-labelledby="detail-title"><div id="detail-content"></div></dialog>
-<dialog id="editor-dialog" class="editor-dialog" aria-labelledby="editor-title"><div class="editor-header"><div><p class="eyebrow">ADD TO YOUR COLLECTION</p><h2 id="editor-title">素材を追加</h2></div><button class="close-button" id="close-editor" aria-label="閉じる">×</button></div><form id="editor-form"><input type="hidden" id="editing-id"><div class="form-row"><label>素材名<input id="item-title" required maxlength="120" placeholder="例：振り返るポーズ"></label><label>カテゴリ<select id="item-category"><option value="pose">ポーズ</option><option value="palette">配色</option><option value="outfit">衣装</option><option value="expression">表情</option><option value="reference">参考資料</option></select></label></div><label id="image-field" class="image-upload"><span id="upload-label">＋ 参考画像を選ぶ</span><input type="file" id="item-image" accept="image/png,image/jpeg,image/webp,image/gif"><span class="upload-hint">PNG / JPG / WEBP / GIF・8MBまで</span><img id="image-preview" alt="選択した参考画像" hidden></label><label id="palette-field" hidden>カラーコード<span class="field-note">スペースかカンマで区切って入力</span><input id="item-colors" placeholder="#B99AE8 #272130 #E4C5CB"><div id="palette-preview" class="palette-preview"></div></label><label>タグ<span class="field-note">カンマで区切って入力</span><input id="item-tags" maxlength="300" placeholder="例：立ち姿, 横向き, 自然体"></label><label>プロンプト<textarea id="item-prompt" rows="4" placeholder="コピーして使いたいプロンプト"></textarea></label><section class="section-builder" aria-labelledby="sections-title"><h3 id="sections-title">PROMPT DATA <span>追加の項目（任意）</span></h3><div id="prompt-sections"></div><button type="button" id="add-section" class="secondary-button">＋ ADD SECTION</button><p class="field-note">容姿・服装・色などを項目ごとに追加できます。詳細画面ではタブで切り替えてコピーできます。</p></section><label>メモ<textarea id="item-notes" rows="2" placeholder="使いどころや覚えておきたいこと"></textarea></label><label>参照URL<input id="item-source" type="url" placeholder="https://"></label><p id="form-error" role="alert" class="form-error"></p><div class="form-footer"><p>保存すると公開ライブラリに追加されます。</p><button class="primary-button" type="submit" id="save-item">保存する</button></div></form></dialog>
+<dialog id="editor-dialog" class="editor-dialog" aria-labelledby="editor-title"><div class="editor-header"><div><p class="eyebrow">NEW ENTRY / 素材を収録</p><h2 id="editor-title">素材を追加</h2></div><button class="close-button" id="close-editor" aria-label="閉じる">×</button></div><form id="editor-form"><input type="hidden" id="editing-id"><div class="form-row"><label>素材名<input id="item-title" required maxlength="120" placeholder="例：振り返るポーズ"></label><label>カテゴリ<select id="item-category"><option value="pose">ポーズ</option><option value="palette">配色</option><option value="outfit">衣装</option><option value="expression">表情</option><option value="reference">参考資料</option></select></label></div><label id="image-field" class="image-upload"><span id="upload-label">＋ 参考画像を選ぶ</span><input type="file" id="item-image" accept="image/png,image/jpeg,image/webp,image/gif"><span class="upload-hint">PNG / JPG / WEBP / GIF・8MBまで</span><img id="image-preview" alt="選択した参考画像" hidden></label><label id="palette-field" hidden>カラーコード<span class="field-note">スペースかカンマで区切って入力</span><input id="item-colors" placeholder="#B99AE8 #272130 #E4C5CB"><div id="palette-preview" class="palette-preview"></div></label><label>タグ<span class="field-note">カンマで区切って入力</span><input id="item-tags" maxlength="300" placeholder="例：立ち姿, 横向き, 自然体"></label><label>プロンプト<textarea id="item-prompt" rows="4" placeholder="コピーして使いたいプロンプト"></textarea></label><section class="section-builder" aria-labelledby="sections-title"><h3 id="sections-title">PROMPT DATA <span>追加の項目（任意）</span></h3><div id="prompt-sections"></div><button type="button" id="add-section" class="secondary-button">＋ ADD SECTION</button><p class="field-note">容姿・服装・色などを項目ごとに追加できます。詳細画面ではタブで切り替えてコピーできます。</p></section><label>メモ<textarea id="item-notes" rows="2" placeholder="使いどころや覚えておきたいこと"></textarea></label><label>参照URL<input id="item-source" type="url" placeholder="https://"></label><p id="form-error" role="alert" class="form-error"></p><div class="form-footer"><p>保存すると公開ライブラリに追加されます。</p><button class="primary-button" type="submit" id="save-item">保存する</button></div></form></dialog>
 
 <dialog id="admin-login-dialog" class="editor-dialog" aria-labelledby="login-title"><div class="editor-header"><h2 id="login-title">管理者ログイン</h2><button type="button" class="close-button" id="close-login" aria-label="ログインを閉じる">×</button></div><form id="login-form"><label>メールアドレス<input id="login-email" type="email" autocomplete="username" required></label><label>パスワード<input id="login-password" type="password" autocomplete="current-password" required></label><p id="login-error" role="alert"></p><button class="primary-button" id="login-submit">ログイン</button></form></dialog><div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
