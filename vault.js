@@ -163,7 +163,7 @@
       sections += `<div class="prompt-tabs" role="tablist" aria-label="プロンプトの項目">${prompts.map((entry,index)=>`<button type="button" role="tab" id="prompt-tab-${index}" aria-controls="prompt-panel-${index}" aria-selected="${index===0}" tabindex="${index===0?0:-1}" data-prompt-tab="${index}">${escapeHtml(entry.heading||entry.label)}</button>`).join('')}</div>`;
       sections += prompts.map((entry,index)=>{
         copyValues['prompt-'+index]=entry.text;
-        return `<section class="detail-section prompt-panel" role="tabpanel" id="prompt-panel-${index}" aria-labelledby="prompt-tab-${index}" ${index?'hidden':''}><p class="eyebrow">PROMPT DATA / ${escapeHtml(entry.label||'PROMPT')}</p><h3>${escapeHtml(entry.heading||entry.label)}</h3><pre class="prompt-text">${escapeHtml(entry.text)}</pre><button class="copy-button" data-copy="prompt-${index}">${escapeHtml(entry.label||entry.heading)} をコピー</button></section>`;
+        return `<section class="detail-section prompt-panel" role="tabpanel" id="prompt-panel-${index}" aria-labelledby="prompt-tab-${index}" ${index?'hidden':''}><p class="eyebrow">PROMPT DATA / ${escapeHtml(entry.label||'PROMPT')}</p><h3>${escapeHtml(entry.heading||entry.label)}</h3>${entry.text ? `<pre class="prompt-text">${escapeHtml(entry.text)}</pre><button class="copy-button" data-copy="prompt-${index}">${escapeHtml(entry.label||entry.heading)} をコピー</button>` : ''}</section>`;
       }).join('');
     }
     sections += section('メモ',item.notes);
@@ -271,7 +271,7 @@
     if(host.children.length>=30){toast('セクションは30個まで追加できます');return;}
     const row=document.createElement('div');row.className='prompt-section-editor';
     row.sectionImage=value.image||'';
-    row.innerHTML=`<div class="section-fields"><label>コピー用の項目名（任意）<input data-section-label maxlength="80" placeholder="例：服装 / OUTFIT" value="${escapeHtml(value.label||'')}"></label><label>タブの見出し<input data-section-heading maxlength="120" placeholder="例：別パターン" value="${escapeHtml(value.heading||'')}"></label><button type="button" class="close-button" aria-label="このセクションを削除">×</button></div><p class="section-help">項目名はコピーボタンに表示します。英語でも日本語でもOK。空欄なら見出しを使います。</p><label>この項目の画像（任意）<input type="file" data-section-image accept="image/png,image/jpeg,image/webp,image/gif"><span class="upload-hint">PNG / JPG / WEBP / GIF・8MBまで。タブに合わせて画像も切り替わります。</span></label><img class="section-image-preview" alt="この項目の画像プレビュー" ${row.sectionImage?'src="'+escapeHtml(row.sectionImage)+'"':'hidden'}><button type="button" class="secondary-button" data-remove-section-image ${row.sectionImage?'':'hidden'}>この画像を外す</button><label>プロンプト本文<textarea data-section-text rows="5" maxlength="50000" required placeholder="この項目のプロンプト">${escapeHtml(value.text||'')}</textarea></label>`;
+    row.innerHTML=`<div class="section-fields"><label>コピー用の項目名（任意）<input data-section-label maxlength="80" placeholder="例：服装 / OUTFIT" value="${escapeHtml(value.label||'')}"></label><label>タブの見出し<input data-section-heading maxlength="120" placeholder="例：別パターン" value="${escapeHtml(value.heading||'')}"></label><button type="button" class="close-button" aria-label="このセクションを削除">×</button></div><p class="section-help">項目名はコピーボタンに表示します。英語でも日本語でもOK。空欄なら見出しを使います。</p><label>この項目の画像（任意）<input type="file" data-section-image accept="image/png,image/jpeg,image/webp,image/gif"><span class="upload-hint">PNG / JPG / WEBP / GIF・8MBまで。タブに合わせて画像も切り替わります。</span></label><img class="section-image-preview" alt="この項目の画像プレビュー" ${row.sectionImage?'src="'+escapeHtml(row.sectionImage)+'"':'hidden'}><button type="button" class="secondary-button" data-remove-section-image ${row.sectionImage?'':'hidden'}>この画像を外す</button><label>プロンプト本文（任意）<textarea data-section-text rows="5" maxlength="50000" placeholder="この項目のプロンプト">${escapeHtml(value.text||'')}</textarea></label>`;
     const preview=row.querySelector('.section-image-preview'),remove=row.querySelector('[data-remove-section-image]');
     row.querySelector('[data-section-image]').addEventListener('change',async event=>{
       const file=event.target.files[0];if(!file)return;
@@ -284,7 +284,7 @@
     host.append(row);
     return row;
   }
-  function readPromptSections(){return [...$('#prompt-sections').children].map(row=>{const value={label:row.querySelector('[data-section-label]').value.trim(),heading:row.querySelector('[data-section-heading]').value.trim(),text:row.querySelector('[data-section-text]').value,image:row.sectionImage||''};if(!value.label&&!value.heading)throw new Error('タブの見出しを入力してください。');if(!value.text.trim())throw new Error('セクションの本文を入力してください。');return value;});}
+  function readPromptSections(){return [...$('#prompt-sections').children].map(row=>{const value={label:row.querySelector('[data-section-label]').value.trim(),heading:row.querySelector('[data-section-heading]').value.trim(),text:row.querySelector('[data-section-text]').value,image:row.sectionImage||''};if(!value.label&&!value.heading)throw new Error('タブの見出しを入力してください。');return value;});}
   $('#add-section').addEventListener('click',()=>{const row=addPromptSection();row?.querySelector('input').focus();});
   $('#item-image').addEventListener('change',async event => {
     const file = event.target.files[0];
