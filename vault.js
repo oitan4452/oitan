@@ -7,8 +7,8 @@
     {id:'pose',label:'ポーズ',icon:'◇',english:'POSE REFERENCES'},
     {id:'palette',label:'配色',icon:'◐',english:'COLOR PALETTES'},
     {id:'outfit',label:'衣装',icon:'♧',english:'OUTFIT REFERENCES'},
-    {id:'expression',label:'表情',icon:'◡',english:'EXPRESSIONS'},
-    {id:'reference',label:'参考資料',icon:'▧',english:'REFERENCES'}
+    {id:'expression',label:'表情',icon:'◡',english:'EXPRESSIONS'}
+
   ];
   const allowedCategories = ['pose','palette','outfit','expression','reference'];
   let customItems = [];
