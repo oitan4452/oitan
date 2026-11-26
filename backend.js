@@ -52,17 +52,24 @@ window.OitanBackend = {
     if (id) previous=checked(await db().from('oitan_materials').select('record,version').eq('id',id).is('deleted_at',null).single());
     if(previous && previous.version!==input.version) throw new Error('別の画面で更新されています。再読み込みしてください。');
     const record=clean(input);
-    const image=await imageFor(input.category==='palette'?'':input.image,previous?.record.image);
-    record.image=image.url;
+    const uploaded=[];
     try {
+      const image=await imageFor(input.category==='palette'?'':input.image,previous?.record.image);
+      record.image=image.url;if(image.key)uploaded.push(image.key);
+      record.sections=await (async()=>{const result=[];for(const section of record.sections){
+        const previousImage=(previous?.record.sections||[]).find(entry=>entry.image===section.image)?.image;
+        const attachment=await imageFor(section.image,previousImage);
+        if(attachment.key)uploaded.push(attachment.key);
+        result.push({...section,image:attachment.url});
+      }return result;})();
       const result=id ? await db().from('oitan_materials').update({record}).eq('id',id).eq('version',input.version).is('deleted_at',null).select('id,record,version').single() : await db().from('oitan_materials').insert({record}).select('id,record,version').single();
       return {item:decode(checked(result))};
     } catch(error) {
-      if(image.key) await db().storage.from('oitan-images').remove([image.key]);
+      if(uploaded.length) await db().storage.from('oitan-images').remove(uploaded);
       throw error;
     }
   },
   async login(email,password) { checked(await db().auth.signInWithPassword({email,password})); if(!await owner()){await db().auth.signOut();throw new Error('このアカウントには編集権限がありません。');} },
   async logout() { checked(await db().auth.signOut()); }
 };
-await import('./vault.js?v=20261127');
+await import('./vault.js?v=20261127-images');

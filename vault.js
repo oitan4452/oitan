@@ -22,6 +22,7 @@
   let draftImage = '';
   let draftId = null;
   let saving = false;
+  let sectionReads = 0;
   let toastTimer;
   const detail = $('#detail-dialog');
   const editor = $('#editor-dialog');
@@ -88,7 +89,7 @@
       image:window.OitanBackend.validImage(item.image) || isValidImage(item.image) || /^\/media\/[a-f0-9-]{36}\.(png|jpg|webp|gif)$/.test(item.image || '') ? item.image : '', colors,
       tags:Array.isArray(item.tags) ? item.tags.filter(tag => typeof tag === 'string').map(tag => tag.slice(0,60)).slice(0,20) : [],
       prompt:String(item.prompt || '').slice(0,50000), notes:String(item.notes || '').slice(0,20000),
-      sections:Array.isArray(item.sections) ? item.sections.map(section => ({label:String(section.label||''),heading:String(section.heading||''),text:String(section.text||'')})) : [],
+      sections:Array.isArray(item.sections) ? item.sections.map(section => ({label:String(section.label||''),heading:String(section.heading||''),text:String(section.text||''),image:window.OitanBackend.validImage(section.image)||isValidImage(section.image)?section.image:''})) : [],
       source:safeUrl(item.source), created:Number.isFinite(item.created) ? item.created : Date.now(), version:Number.isInteger(item.version) ? item.version : 1
     };
   }
@@ -110,7 +111,7 @@
       visual = `<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" loading="lazy">`;
     }
     const saved = favorites.has(item.id);
-    return `<article class="material-card" style="--delay:${Math.min(index,11)*20}ms"><button class="card-open" data-open="${escapeHtml(item.id)}" aria-label="${escapeHtml(item.title)}の詳細を開く"><span class="card-image">${visual}<span class="card-type">${escapeHtml(categoryInfo(item.category).label)}</span></span><span class="card-copy"><span class="card-title">${escapeHtml(item.title)}</span><span class="card-subtitle">${escapeHtml(item.tags.slice(0,2).join(' / ') || categoryInfo(item.category).english)}</span></span></button><button class="favorite-button ${saved ? 'saved' : ''}" data-favorite="${escapeHtml(item.id)}" aria-label="${escapeHtml(item.title)}をお気に入り${saved ? 'から外す' : 'に追加'}" aria-pressed="${saved}">${saved ? '★' : '☆'}</button><span class="card-bottom-line"></span></article>`;
+    return `<article class="material-card" style="--delay:${Math.min(index,11)*20}ms"><button class="card-open" data-open="${escapeHtml(item.id)}" aria-label="${escapeHtml(item.title)}の詳細を開く"><span class="card-image">${visual}<span class="card-type">${escapeHtml(categoryInfo(item.category).label)}</span></span><span class="card-copy"><span class="card-title">${escapeHtml(item.title)}</span><span class="card-subtitle">${escapeHtml(item.tags.slice(0,2).join(' / ') || categoryInfo(item.category).english)}</span></span></button><span class="card-bottom-line"></span></article>`;
   }
   function render() {
     renderNav();
@@ -127,7 +128,7 @@
     $('#cards').innerHTML = items.map(cardMarkup).join('');
     $('#empty-state').hidden = loading || items.length > 0;
     $('#empty-title').textContent = query ? '該当する素材がありません' : favoriteOnly ? 'お気に入りを集めよう' : isAdmin ? `${category.id === 'all' ? '最初の素材' : category.label}を追加` : '素材は準備中です';
-    $('#empty-copy').textContent = query ? '検索する言葉や分類を変えてみてください。' : favoriteOnly ? 'カードの星を押すと、ここに集まります。' : isAdmin ? '画像やプロンプトを保存して、素材庫を育てていこう。' : '公開された素材がここに並びます。';
+    $('#empty-copy').textContent = query ? '検索する言葉や分類を変えてみてください。' : favoriteOnly ? '詳細画面からお気に入りを登録できます。' : isAdmin ? '画像やプロンプトを保存して、素材庫を育てていこう。' : '公開された素材がここに並びます。';
     $('#add-empty').hidden = !isAdmin || Boolean(query) || favoriteOnly;
     $('#footer-count').textContent = loading ? '素材を読み込み中…' : `${items.length}件の素材を表示`;
     renderGallery();
@@ -157,7 +158,7 @@
     let sections = '';
     if (item.category === 'palette') sections += `<section class="detail-section"><h3>カラーコード</h3><div class="detail-palette">${item.colors.map(color => `<button class="swatch-button" data-color="${color}" aria-label="${color}をコピー"><span style="--swatch:${color}"></span><small>${color.toUpperCase()}</small></button>`).join('')}</div><button class="copy-button" data-copy="palette">配色をまとめてコピー</button></section>`;
     copyValues.palette = (item.colors || []).join(', ');
-    const prompts = [...(item.prompt ? [{label:'PROMPT',heading:'プロンプト',text:item.prompt}] : []),...(item.sections||[])];
+    const prompts = [...(item.prompt ? [{label:'PROMPT',heading:'プロンプト',text:item.prompt,image:item.image}] : []),...(item.sections||[])];
     if(prompts.length) {
       sections += `<div class="prompt-tabs" role="tablist" aria-label="プロンプトの項目">${prompts.map((entry,index)=>`<button type="button" role="tab" id="prompt-tab-${index}" aria-controls="prompt-panel-${index}" aria-selected="${index===0}" tabindex="${index===0?0:-1}" data-prompt-tab="${index}">${escapeHtml(entry.heading||entry.label)}</button>`).join('')}</div>`;
       sections += prompts.map((entry,index)=>{
@@ -176,7 +177,8 @@
     });
     $('#detail-content').querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click',() => copyText(copyValues[button.dataset.copy])));
     const tabs=[...$('#detail-content').querySelectorAll('[data-prompt-tab]')];
-    function selectTab(index,focus=false){tabs.forEach((tab,i)=>{tab.setAttribute('aria-selected',String(i===index));tab.tabIndex=i===index?0:-1;$('#prompt-panel-'+i).hidden=i!==index;});if(focus)tabs[index].focus();}
+    function selectTab(index,focus=false){tabs.forEach((tab,i)=>{tab.setAttribute('aria-selected',String(i===index));tab.tabIndex=i===index?0:-1;$('#prompt-panel-'+i).hidden=i!==index;});const selected=prompts[index];const image=selected.image||item.image;$('#detail-content .detail-visual').innerHTML=image?`<img src="${escapeHtml(image)}" alt="${escapeHtml(selected.heading||item.title)}">`:visual;if(focus)tabs[index].focus();}
+    if(tabs.length)selectTab(0);
     tabs.forEach((tab,index)=>{tab.addEventListener('click',()=>selectTab(index));tab.addEventListener('keydown',event=>{let next;if(event.key==='ArrowRight')next=(index+1)%tabs.length;if(event.key==='ArrowLeft')next=(index+tabs.length-1)%tabs.length;if(event.key==='Home')next=0;if(event.key==='End')next=tabs.length-1;if(next!==undefined){event.preventDefault();selectTab(next,true);}});});
     $('#detail-content').querySelectorAll('[data-color]').forEach(button => button.addEventListener('click',() => copyText(button.dataset.color)));
     $('#detail-content').querySelector('[data-edit]')?.addEventListener('click',() => {detail.close();openEditor(item);});
@@ -236,6 +238,7 @@
   $('#editor-form').addEventListener('submit',async event => {
     event.preventDefault();
     if (saving || !isAdmin) return;
+    if(sectionReads){$('#form-error').textContent='画像の読み込みが終わるまでお待ちください。';return;}
     saving = true;
     $('#form-error').textContent = '';
     $('#save-item').disabled = true;
@@ -267,12 +270,21 @@
     const host=$('#prompt-sections');
     if(host.children.length>=30){toast('セクションは30個まで追加できます');return;}
     const row=document.createElement('div');row.className='prompt-section-editor';
-    row.innerHTML=`<div class="section-fields"><label>英語ラベル<input data-section-label maxlength="80" placeholder="例：APPEARANCE" value="${escapeHtml(value.label||'')}"></label><label>見出し<input data-section-heading maxlength="120" placeholder="例：容姿" value="${escapeHtml(value.heading||'')}"></label><button type="button" class="close-button" aria-label="このセクションを削除">×</button></div><label>プロンプト本文<textarea data-section-text rows="5" maxlength="50000" required placeholder="この項目のプロンプト">${escapeHtml(value.text||'')}</textarea></label>`;
+    row.sectionImage=value.image||'';
+    row.innerHTML=`<div class="section-fields"><label>コピー用の項目名（任意）<input data-section-label maxlength="80" placeholder="例：服装 / OUTFIT" value="${escapeHtml(value.label||'')}"></label><label>タブの見出し<input data-section-heading maxlength="120" placeholder="例：別パターン" value="${escapeHtml(value.heading||'')}"></label><button type="button" class="close-button" aria-label="このセクションを削除">×</button></div><p class="section-help">項目名はコピーボタンに表示します。英語でも日本語でもOK。空欄なら見出しを使います。</p><label>この項目の画像（任意）<input type="file" data-section-image accept="image/png,image/jpeg,image/webp,image/gif"><span class="upload-hint">PNG / JPG / WEBP / GIF・8MBまで。タブに合わせて画像も切り替わります。</span></label><img class="section-image-preview" alt="この項目の画像プレビュー" ${row.sectionImage?'src="'+escapeHtml(row.sectionImage)+'"':'hidden'}><button type="button" class="secondary-button" data-remove-section-image ${row.sectionImage?'':'hidden'}>この画像を外す</button><label>プロンプト本文<textarea data-section-text rows="5" maxlength="50000" required placeholder="この項目のプロンプト">${escapeHtml(value.text||'')}</textarea></label>`;
+    const preview=row.querySelector('.section-image-preview'),remove=row.querySelector('[data-remove-section-image]');
+    row.querySelector('[data-section-image]').addEventListener('change',async event=>{
+      const file=event.target.files[0];if(!file)return;
+      if(!['image/png','image/jpeg','image/webp','image/gif'].includes(file.type)||file.size>8*1024*1024){$('#form-error').textContent='画像は8MB以下のPNG・JPG・WEBP・GIFを選んでください。';event.target.value='';return;}
+      sectionReads++;
+      try{const image=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(new Error('画像を読み込めませんでした。'));reader.readAsDataURL(file);});row.sectionImage=image;preview.src=image;preview.hidden=false;remove.hidden=false;$('#form-error').textContent='';}catch(error){$('#form-error').textContent=error.message;}finally{sectionReads--;}
+    });
+    remove.addEventListener('click',()=>{row.sectionImage='';preview.removeAttribute('src');preview.hidden=true;remove.hidden=true;row.querySelector('[data-section-image]').value='';});
     row.querySelector('button').addEventListener('click',()=>{const next=row.nextElementSibling?.querySelector('input')||row.previousElementSibling?.querySelector('input')||$('#add-section');row.remove();next.focus();});
     host.append(row);
     return row;
   }
-  function readPromptSections(){return [...$('#prompt-sections').children].map(row=>{const value={label:row.querySelector('[data-section-label]').value.trim(),heading:row.querySelector('[data-section-heading]').value.trim(),text:row.querySelector('[data-section-text]').value};if(!value.label&&!value.heading)throw new Error('セクションのラベルか見出しを入力してください。');if(!value.text.trim())throw new Error('セクションの本文を入力してください。');return value;});}
+  function readPromptSections(){return [...$('#prompt-sections').children].map(row=>{const value={label:row.querySelector('[data-section-label]').value.trim(),heading:row.querySelector('[data-section-heading]').value.trim(),text:row.querySelector('[data-section-text]').value,image:row.sectionImage||''};if(!value.label&&!value.heading)throw new Error('タブの見出しを入力してください。');if(!value.text.trim())throw new Error('セクションの本文を入力してください。');return value;});}
   $('#add-section').addEventListener('click',()=>{const row=addPromptSection();row?.querySelector('input').focus();});
   $('#item-image').addEventListener('change',async event => {
     const file = event.target.files[0];
