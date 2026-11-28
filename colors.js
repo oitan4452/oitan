@@ -15,5 +15,5 @@ $('#random').addEventListener('click',()=>{if(locks.every(Boolean)){note('色が
 $('#count').addEventListener('change',()=>{const n=Number($('#count').value);colors=Array.from({length:n},(_,i)=>colors[i]||hsl(Math.random()*360,65,65));locks=colors.map((_,i)=>locks[i]||false);offset=0;render();});
 $('#shuffle').addEventListener('click',()=>{offset=(offset+1)%colors.length;preview();});
 $('#reset').addEventListener('click',()=>{colors=[...initial];locks=colors.map(()=>false);offset=0;$('#count').value='5';$('#harmony').value='free';render();});
-$('#copy').addEventListener('click',async()=>{const text=colors.join(', ');try{await navigator.clipboard.writeText(text);note('カラーコードをコピーしました');}catch{note('コピーできませんでした。各コードを選択してコピーしてください。');}});
+$('#copy').addEventListener('click',async()=>{const text='次のカラーコードを、画像生成プロンプトに使える英語の色名に変換してください。\n各カラーコードと対応する色名を並べ、最後に英語の色名だけをカンマ区切りでまとめてください。\n\n'+colors.join(', ');try{await navigator.clipboard.writeText(text);note('チャッピーに渡す文をコピーしました');}catch{note('コピーできませんでした。各コードを選択してコピーしてください。');}});
 render();})();
