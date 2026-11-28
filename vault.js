@@ -355,7 +355,8 @@
   $('#admin-logout').addEventListener('click',async event=>{event.preventDefault();try{await window.OitanBackend.logout();location.reload();}catch(error){toast(error.message);}});
   $('#login-form').addEventListener('submit',async event=>{event.preventDefault();$('#login-submit').disabled=true;try{await window.OitanBackend.login($('#login-email').value,$('#login-password').value);$('#login-password').value='';location.reload();}catch(error){$('#login-error').textContent=error.message;}finally{$('#login-submit').disabled=false;}});
   render();
-  Promise.all([apiRequest('/api/session'),apiRequest('/api/items')]).then(([session,result]) => {
+  const publicSession={signedIn:false,isAdmin:false};
+  Promise.all([Promise.race([apiRequest('/api/session').catch(()=>publicSession),new Promise(resolve=>setTimeout(()=>resolve(publicSession),5000))]),apiRequest('/api/items')]).then(([session,result]) => {
     isAdmin = session.isAdmin === true;
     customItems = result.items.map(normalizeItem);
     try { favorites = new Set(JSON.parse(localStorage.getItem('oitan-public-favorites') || '[]')); } catch {favorites = new Set();}

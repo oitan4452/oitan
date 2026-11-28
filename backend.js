@@ -1,5 +1,5 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.86.0';
-import { initAnalytics } from './analytics.js?v=20261129';
+
 
 const config = window.OITAN_CONFIG || {};
 let client;
@@ -36,12 +36,14 @@ window.OitanBackend = {
       if (!config.supabaseUrl || !config.publishableKey) return {isAdmin:false,signedIn:false};
       const session=checked(await db().auth.getSession()).session;
       const isAdmin=session?await owner():false;
-      initAnalytics(db(),isAdmin);
+      import('./analytics.js?v=20261129').then(({initAnalytics})=>initAnalytics(db(),isAdmin)).catch(()=>{});
       return {signedIn:!!session,isAdmin};
     }
     if (method==='GET') {
       if (!config.supabaseUrl || !config.publishableKey) return {items:[]};
-      return {items:checked(await db().from('oitan_materials').select('id,record,version').is('deleted_at',null).order('created_at')).map(decode)};
+      const response=await fetch(config.supabaseUrl+'/rest/v1/oitan_materials?select=id,record,version&deleted_at=is.null&order=created_at.asc',{headers:{apikey:config.publishableKey}});
+      if(!response.ok)throw new Error('素材を読み込めませんでした。通信状態を確認して再読み込みしてください。');
+      return {items:(await response.json()).map(decode)};
     }
     if (!await owner()) throw new Error('追加・編集・削除は管理者だけが利用できます。');
     const input=JSON.parse(options.body);
@@ -75,4 +77,4 @@ window.OitanBackend = {
   async login(email,password) { checked(await db().auth.signInWithPassword({email,password})); if(!await owner()){await db().auth.signOut();throw new Error('このアカウントには編集権限がありません。');} },
   async logout() { checked(await db().auth.signOut()); }
 };
-await import('./vault.js?v=20261129-speed');
+await import('./vault.js?v=20261129-mobile');
