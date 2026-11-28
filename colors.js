@@ -1,5 +1,5 @@
 (()=>{'use strict';const $=s=>document.querySelector(s),initial=['#F5E5CC','#191916','#FFCC4B','#F695BA','#83C3A7'];let colors=[...initial],locks=colors.map(()=>false),offset=0,timer;
-try{const saved=JSON.parse(localStorage.getItem('oitan-color-play'));if(saved&&Array.isArray(saved.colors)&&saved.colors.length>=3&&saved.colors.length<=6&&saved.colors.every(c=>/^#[0-9a-f]{6}$/i.test(c))){colors=saved.colors;locks=colors.map((_,i)=>saved.locks?.[i]===true);}}catch{}
+try{const saved=JSON.parse(localStorage.getItem('oitan-color-play'));if(saved&&Array.isArray(saved.colors)&&saved.colors.length>=2&&saved.colors.length<=6&&saved.colors.every(c=>/^#[0-9a-f]{6}$/i.test(c))){colors=saved.colors;locks=colors.map((_,i)=>saved.locks?.[i]===true);}}catch{}
 $('#count').value=String(colors.length);
 function note(text){$('#status').textContent=text;clearTimeout(timer);timer=setTimeout(()=>$('#status').textContent='',3000);}
 function persist(){try{localStorage.setItem('oitan-color-play',JSON.stringify({colors,locks}));}catch{note('このブラウザに保存できませんでした。カラーコードをコピーしてください。');}}
