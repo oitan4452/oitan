@@ -134,15 +134,21 @@
     renderGallery();
     document.title = `${favoriteOnly ? 'お気に入り' : category.label} — OITAN`;
   }
-  let gallerySignature='';
+  let gallerySignature='',gallerySizeObserver;
   function renderGallery(){
     const host=$('#hero-gallery');if(!host)return;
     const images=allItems().filter(item=>['pose','outfit','expression'].includes(item.category)&&item.image);
     const signature=images.map(item=>item.image).join('|');if(signature===gallerySignature)return;gallerySignature=signature;
-    if(!images.length){host.replaceChildren();$('#gallery-pause').hidden=true;return;}
+    if(!images.length){gallerySizeObserver?.disconnect();host.replaceChildren();$('#gallery-pause').hidden=true;return;}
     const shuffled=images.map(item=>({item,key:Math.random()})).sort((a,b)=>a.key-b.key).slice(0,12).map(entry=>entry.item);
     const track=shuffled.map(item=>'<img src="'+escapeHtml(item.image)+'" alt="" loading="lazy">').join('');
     host.innerHTML='<div class="gallery-track"><div class="gallery-set">'+track+'</div><div class="gallery-set">'+track+'</div></div>';
+    // Keep the same distance per second, regardless of the image count or viewport.
+    gallerySizeObserver?.disconnect();
+    const galleryTrack=host.querySelector('.gallery-track'),gallerySet=host.querySelector('.gallery-set');
+    const updateGallerySpeed=()=>{const width=gallerySet.getBoundingClientRect().width;if(width>0)galleryTrack.style.animationDuration=(width/24)+'s';};
+    updateGallerySpeed();
+    gallerySizeObserver=new ResizeObserver(updateGallerySpeed);gallerySizeObserver.observe(gallerySet);
     $('#gallery-pause').hidden=false;
   }
   $('#gallery-pause')?.addEventListener('click',event=>{const paused=$('#hero-gallery').classList.toggle('paused');event.currentTarget.setAttribute('aria-pressed',String(paused));event.currentTarget.setAttribute('aria-label',paused?'背景画像の動きを再開する':'背景画像の動きを止める');event.currentTarget.textContent=paused?'▶':'Ⅱ';});
