@@ -1,4 +1,5 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.86.0';
+import { initAnalytics } from './analytics.js?v=20261129';
 
 const config = window.OITAN_CONFIG || {};
 let client;
@@ -34,7 +35,9 @@ window.OitanBackend = {
     if (path==='/api/session') {
       if (!config.supabaseUrl || !config.publishableKey) return {isAdmin:false,signedIn:false};
       const session=checked(await db().auth.getSession()).session;
-      return {signedIn:!!session,isAdmin:session?await owner():false};
+      const isAdmin=session?await owner():false;
+      initAnalytics(db(),isAdmin);
+      return {signedIn:!!session,isAdmin};
     }
     if (method==='GET') {
       if (!config.supabaseUrl || !config.publishableKey) return {items:[]};
